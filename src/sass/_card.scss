@@ -60,8 +60,6 @@
   }
   .review {
     font-size: 12px;
-    position: absolute;
-    bottom: 5px;
-    right: 5%;
+    align-self: flex-end;
   }
 }

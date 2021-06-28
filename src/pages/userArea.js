@@ -3,12 +3,31 @@ import Tabletop from "tabletop";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Card from "../components/Card";
+import { Collapse } from "antd";
+import { Slider, Switch } from "antd";
+
+const { Panel } = Collapse;
+
 const UserArea = () => {
+  const [cardColor, setCardColor] = useState("#ffffff");
   const options = ["one", "two", "three"];
   const defaultOption = options[0];
   const [id, setId] = useState("");
   const [singleCard, setSinglecard] = useState();
   const [keys, setkey] = useState([]);
+  const AvatarShape = ["Round", "Square", "Rounded square"];
+  const defaultShape = AvatarShape[0];
+  const [avatar, setAvatarShape] = useState(defaultShape);
+  const [nameColor, setnameColor] = useState("#000000");
+  const [nameSize, setnameSize] = useState("21");
+  const [positionColor, setpositionColor] = useState("#777777");
+  const [positionSize, setpositionSize] = useState("18");
+  const [titleSize, setTitleSize] = useState("21");
+  const [titleColor, setTitleColor] = useState("#000000");
+  const [reviewSize, setReviewSize] = useState("17");
+  const [reviewColor, setReviewColor] = useState("#777777");
+  const [serviceColor, setServiceColor] = useState("#000000");
+  const [serviceSize, setServiceSize] = useState("14");
   const dropdown2 = [
     "Photo",
     "Name",
@@ -49,18 +68,19 @@ const UserArea = () => {
   const [Position, setPosition] = useState("Position");
   const [Service, setService] = useState("Service");
   const [Logo, setLogo] = useState(
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fgetdefault.in%2Fabout-us%2F&psig=AOvVaw1ziy4YGrs7oErtjYe7m3Pi&ust=1624800093472000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCKCggJWytfECFQAAAAAdAAAAABAV"
+    "https://www.strunkmedia.com/wp-content/uploads/2018/05/bigstock-Print-163213010.png"
   );
   console.log(keys);
 
   return (
     <div className="userarea">
-      <div className="header">
-        <p className="user-title">User Area</p>
-        <div className="help-section">
-          <p>Help</p>
-          <span>i</span>
+      <div className="navigation">
+        <div className="nav-left">
+          <p className="nav-title">User Area</p>
         </div>
+        <button className="button-help">
+          Help <span>i</span>
+        </button>
       </div>
       <div className="fetch-area">
         <label htmlFor="sheetid">Sheet Id</label>
@@ -180,6 +200,132 @@ const UserArea = () => {
               )}
             </div>
           </div>
+          {singleCard ? (
+            <div className="design-area">
+              <Collapse accordion>
+                <Panel header="Card Color" key="1">
+                  <p>Color</p>
+                  <input
+                    value={cardColor}
+                    type="color"
+                    name=""
+                    id=""
+                    onChange={(e) => {
+                      setCardColor(e.target.value);
+                    }}
+                  />
+                </Panel>
+                <Panel header="Avatar Customize" key="2">
+                  <p>Shape</p>
+                  <Dropdown
+                    options={AvatarShape}
+                    onChange={(e) => {
+                      setAvatarShape(e.value);
+                    }}
+                    value={avatar}
+                    placeholder={"Select an option"}
+                  />
+                </Panel>
+                <Panel header="Name Customize" key="3">
+                  <p>Color</p>
+                  <input
+                    value={nameColor}
+                    type="color"
+                    name=""
+                    id=""
+                    onChange={(e) => {
+                      setnameColor(e.target.value);
+                    }}
+                  />
+                  <p>Font Size</p>
+                  <Slider
+                    defaultValue={parseInt(nameSize)}
+                    onChange={(value) => {
+                      setnameSize(value.toString());
+                    }}
+                  />
+                </Panel>
+                <Panel header="Position Customize" key="4">
+                  <p>Color</p>
+                  <input
+                    type="color"
+                    name=""
+                    id=""
+                    value={positionColor}
+                    onChange={(e) => {
+                      setpositionColor(e.target.value);
+                    }}
+                  />
+                  <p>Font Size</p>
+                  <Slider
+                    defaultValue={parseInt(positionSize)}
+                    onChange={(value) => {
+                      setpositionSize(value.toString());
+                    }}
+                  />
+                </Panel>
+                <Panel header="Title Customize" key="5">
+                  <p>Color</p>
+                  <input
+                    type="color"
+                    name=""
+                    id=""
+                    value={titleColor}
+                    onChange={(e) => {
+                      setTitleColor(e.target.value);
+                    }}
+                  />
+                  <p>Font Size</p>
+                  <Slider
+                    defaultValue={parseInt(titleSize)}
+                    onChange={(value) => {
+                      setTitleSize(value.toString());
+                    }}
+                  />
+                </Panel>
+                <Panel header="Review Customize" key="6">
+                  <p>Color</p>
+                  <input
+                    type="color"
+                    name=""
+                    id=""
+                    value={reviewColor}
+                    onChange={(e) => {
+                      setReviewColor(e.target.value);
+                    }}
+                  />
+                  <p>Font Size</p>
+                  <Slider
+                    defaultValue={parseInt(reviewSize)}
+                    onChange={(value) => {
+                      setReviewSize(value.toString());
+                    }}
+                  />
+                </Panel>
+                <Panel header="Service Customize" key="7">
+                  <p>Color</p>
+                  <input
+                    type="color"
+                    name=""
+                    id=""
+                    value={serviceColor}
+                    onChange={(e) => {
+                      setServiceColor(e.target.value);
+                    }}
+                  />
+                  <p>Font Size</p>
+                  <Slider
+                    defaultValue={parseInt(serviceSize)}
+                    onChange={(value) => {
+                      setServiceSize(value.toString());
+                    }}
+                  />
+                </Panel>
+              </Collapse>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="CardArea">
@@ -192,6 +338,18 @@ const UserArea = () => {
           Companylogo={Logo}
           Service={Service}
           Position={Position}
+          cardColor={cardColor}
+          avatarShape={avatar}
+          nameColor={nameColor}
+          nameSize={nameSize}
+          positionColor={positionColor}
+          positionSize={positionSize}
+          titleColor={titleColor}
+          titleSize={titleSize}
+          reviewColor={reviewColor}
+          reviewSize={reviewSize}
+          serviceColor={serviceColor}
+          serviceSize={serviceSize}
         ></Card>
       </div>
     </div>
