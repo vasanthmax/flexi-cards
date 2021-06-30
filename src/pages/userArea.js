@@ -71,7 +71,16 @@ const UserArea = () => {
     "https://www.strunkmedia.com/wp-content/uploads/2018/05/bigstock-Print-163213010.png"
   );
   console.log(keys);
-
+  const fontoptions = [
+    "Poppins",
+    "monospace",
+    "Georgia",
+    "Times New Roman",
+    "Arial",
+    "Papyrus",
+  ];
+  const fontdefault = fontoptions[0];
+  const [fontname, Setfont] = useState(fontdefault);
   return (
     <div className="userarea">
       <div className="navigation">
@@ -321,6 +330,17 @@ const UserArea = () => {
                     }}
                   />
                 </Panel>
+                <Panel header="Font Customize" key="8">
+                  <p>Font</p>
+                  <Dropdown
+                    options={fontoptions}
+                    onChange={(e) => {
+                      Setfont(e.value);
+                    }}
+                    value={fontname}
+                    placeholder={"Select an option"}
+                  />
+                </Panel>
               </Collapse>
             </div>
           ) : (
@@ -350,6 +370,7 @@ const UserArea = () => {
           reviewSize={reviewSize}
           serviceColor={serviceColor}
           serviceSize={serviceSize}
+          fontname={fontname}
         ></Card>
       </div>
     </div>

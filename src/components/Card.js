@@ -22,6 +22,7 @@ const Card = ({
   reviewColor,
   serviceColor,
   serviceSize,
+  fontname,
 }) => {
   const [readMore, setReadMore] = useState(false);
   const Stars = [];
@@ -31,7 +32,10 @@ const Card = ({
     Stars.push(<img src={Star} alt="" />);
   }
   return (
-    <div className="endorsal-card" style={{ background: `${cardColor}` }}>
+    <div
+      className="endorsal-card"
+      style={{ background: `${cardColor}`, fontFamily: `${fontname}` }}
+    >
       {Photo === "" ? (
         ""
       ) : (
