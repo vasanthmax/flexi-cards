@@ -104,6 +104,17 @@ const UserArea = () => {
   const [PricingFeature5, setPricingFeature5] = useState(
     'Custom and secure business email'
   );
+  //Pricing Card Editables
+  const [PricingCardColor, setPricingCardColor] = useState('#ffffff');
+  const [PricingPlanSize, setPricingPlanSize] = useState('20');
+  const [PricingPlanColor, setPricingPlanColor] = useState('#000');
+  const [PricingPriceSize, setPricingPriceSize] = useState('36');
+  const [PricingPriceColor, setPricingPriceColor] = useState('#1a73e8');
+  const [PricingFeatureSize, setPricingFeatureSize] = useState('14');
+  const [PricingFeatureColor, setPricingFeatureColor] = useState('#616161');
+  const [PricingButtonTextColor, setPricingButtonTextColor] =
+    useState('#1a73e8');
+  const [PricingButtonColor, setPricingButtonColor] = useState('#fff');
   const fetchData = () => {
     Tabletop.init({
       key: id.toString(),
@@ -148,7 +159,7 @@ const UserArea = () => {
   const fontdefault = fontoptions[0];
   const [fontname, Setfont] = useState(fontdefault);
   const [FlipFont, setFlipFont] = useState(fontdefault);
-
+  const [PricingFont, setPricingFont] = useState(fontdefault);
   return (
     <div className='userarea'>
       <div className='navigation'>
@@ -382,394 +393,372 @@ const UserArea = () => {
                 </div>
               )}
               <div className='editable-section'>
-                {cardType === 'Normal' ? (
-                  <Collapse accordion>
-                    <Panel header='Card Color' key='1'>
-                      <p>Color</p>
-                      <input
-                        value={cardColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setCardColor(e.target.value);
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Avatar Customize' key='2'>
-                      <p>Shape</p>
-                      <Dropdown
-                        options={AvatarShape}
-                        onChange={(e) => {
-                          setAvatarShape(e.value);
-                        }}
-                        value={avatar}
-                        placeholder={'Select an option'}
-                      />
-                    </Panel>
-                    <Panel header='Name Customize' key='3'>
-                      <p>Color</p>
-                      <input
-                        value={nameColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setnameColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(nameSize)}
-                        onChange={(value) => {
-                          setnameSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Position Customize' key='4'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={positionColor}
-                        onChange={(e) => {
-                          setpositionColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(positionSize)}
-                        onChange={(value) => {
-                          setpositionSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Title Customize' key='5'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={titleColor}
-                        onChange={(e) => {
-                          setTitleColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(titleSize)}
-                        onChange={(value) => {
-                          setTitleSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Review Customize' key='6'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={reviewColor}
-                        onChange={(e) => {
-                          setReviewColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(reviewSize)}
-                        onChange={(value) => {
-                          setReviewSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Service Customize' key='7'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={serviceColor}
-                        onChange={(e) => {
-                          setServiceColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(serviceSize)}
-                        onChange={(value) => {
-                          setServiceSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Font Customize' key='8'>
-                      <p>Font</p>
-                      <Dropdown
-                        options={fontoptions}
-                        onChange={(e) => {
-                          Setfont(e.value);
-                        }}
-                        value={fontname}
-                        placeholder={'Select an option'}
-                      />
-                    </Panel>
-                  </Collapse>
-                ) : cardType === 'Flip' ? (
-                  <Collapse accordion>
-                    <Panel header='Title Customize' key='1'>
-                      <p>Color</p>
-                      <input
-                        value={FlipTitleColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setFlipTitleColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(FlipTitleSize)}
-                        onChange={(value) => {
-                          setFlipTitleSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Card Color' key='2'>
-                      <p>Color</p>
-                      <input
-                        value={FlipCardColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setFlipCardColor(e.target.value);
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Name Customize' key='3'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={FlipNameColor}
-                        onChange={(e) => {
-                          setFlipNameColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(FlipNameSize)}
-                        onChange={(value) => {
-                          setFlipNameSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Price Customize' key='4'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={FlipPriceColor}
-                        onChange={(e) => {
-                          setFlipPriceColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(FlipPriceSize)}
-                        onChange={(value) => {
-                          setFlipPriceSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Description Customize' key='5'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={FlipDescriptionColor}
-                        onChange={(e) => {
-                          setFlipDescriptionColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(FlipDescriptionSize)}
-                        onChange={(value) => {
-                          setFlipDescriptionSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Button Customize' key='6'>
-                      <p>Button Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={FlipButtonColor}
-                        onChange={(e) => {
-                          setFlipButtonColor(e.target.value);
-                        }}
-                      />
-                      <p>Button Text Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={FlipButtonTextColor}
-                        onChange={(e) => {
-                          setFlipButtonTextColor(e.target.value);
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Font Customize' key='7'>
-                      <p>Font</p>
-                      <Dropdown
-                        options={fontoptions}
-                        onChange={(e) => {
-                          setFlipFont(e.value);
-                        }}
-                        value={FlipFont}
-                        placeholder={'Select an option'}
-                      />
-                    </Panel>
-                  </Collapse>
-                ) : cardType === 'Pricing' ? (
-                  <Collapse accordion>
-                    <Panel header='Card Color' key='1'>
-                      <p>Color</p>
-                      <input
-                        value={cardColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setCardColor(e.target.value);
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Avatar Customize' key='2'>
-                      <p>Shape</p>
-                      <Dropdown
-                        options={AvatarShape}
-                        onChange={(e) => {
-                          setAvatarShape(e.value);
-                        }}
-                        value={avatar}
-                        placeholder={'Select an option'}
-                      />
-                    </Panel>
-                    <Panel header='Name Customize' key='3'>
-                      <p>Color</p>
-                      <input
-                        value={nameColor}
-                        type='color'
-                        name=''
-                        id=''
-                        onChange={(e) => {
-                          setnameColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(nameSize)}
-                        onChange={(value) => {
-                          setnameSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Position Customize' key='4'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={positionColor}
-                        onChange={(e) => {
-                          setpositionColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(positionSize)}
-                        onChange={(value) => {
-                          setpositionSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Title Customize' key='5'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={titleColor}
-                        onChange={(e) => {
-                          setTitleColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(titleSize)}
-                        onChange={(value) => {
-                          setTitleSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Review Customize' key='6'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={reviewColor}
-                        onChange={(e) => {
-                          setReviewColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(reviewSize)}
-                        onChange={(value) => {
-                          setReviewSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Service Customize' key='7'>
-                      <p>Color</p>
-                      <input
-                        type='color'
-                        name=''
-                        id=''
-                        value={serviceColor}
-                        onChange={(e) => {
-                          setServiceColor(e.target.value);
-                        }}
-                      />
-                      <p>Font Size</p>
-                      <Slider
-                        defaultValue={parseInt(serviceSize)}
-                        onChange={(value) => {
-                          setServiceSize(value.toString());
-                        }}
-                      />
-                    </Panel>
-                    <Panel header='Font Customize' key='8'>
-                      <p>Font</p>
-                      <Dropdown
-                        options={fontoptions}
-                        onChange={(e) => {
-                          Setfont(e.value);
-                        }}
-                        value={fontname}
-                        placeholder={'Select an option'}
-                      />
-                    </Panel>
-                  </Collapse>
+                {singleCard ? (
+                  cardType === 'Normal' ? (
+                    <Collapse accordion>
+                      <Panel header='Card Color' key='1'>
+                        <p>Color</p>
+                        <input
+                          value={cardColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setCardColor(e.target.value);
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Avatar Customize' key='2'>
+                        <p>Shape</p>
+                        <Dropdown
+                          options={AvatarShape}
+                          onChange={(e) => {
+                            setAvatarShape(e.value);
+                          }}
+                          value={avatar}
+                          placeholder={'Select an option'}
+                        />
+                      </Panel>
+                      <Panel header='Name Customize' key='3'>
+                        <p>Color</p>
+                        <input
+                          value={nameColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setnameColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(nameSize)}
+                          onChange={(value) => {
+                            setnameSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Position Customize' key='4'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={positionColor}
+                          onChange={(e) => {
+                            setpositionColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(positionSize)}
+                          onChange={(value) => {
+                            setpositionSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Title Customize' key='5'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={titleColor}
+                          onChange={(e) => {
+                            setTitleColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(titleSize)}
+                          onChange={(value) => {
+                            setTitleSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Review Customize' key='6'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={reviewColor}
+                          onChange={(e) => {
+                            setReviewColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(reviewSize)}
+                          onChange={(value) => {
+                            setReviewSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Service Customize' key='7'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={serviceColor}
+                          onChange={(e) => {
+                            setServiceColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(serviceSize)}
+                          onChange={(value) => {
+                            setServiceSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Font Customize' key='8'>
+                        <p>Font</p>
+                        <Dropdown
+                          options={fontoptions}
+                          onChange={(e) => {
+                            Setfont(e.value);
+                          }}
+                          value={fontname}
+                          placeholder={'Select an option'}
+                        />
+                      </Panel>
+                    </Collapse>
+                  ) : cardType === 'Flip' ? (
+                    <Collapse accordion>
+                      <Panel header='Title Customize' key='1'>
+                        <p>Color</p>
+                        <input
+                          value={FlipTitleColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setFlipTitleColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(FlipTitleSize)}
+                          onChange={(value) => {
+                            setFlipTitleSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Card Color' key='2'>
+                        <p>Color</p>
+                        <input
+                          value={FlipCardColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setFlipCardColor(e.target.value);
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Name Customize' key='3'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={FlipNameColor}
+                          onChange={(e) => {
+                            setFlipNameColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(FlipNameSize)}
+                          onChange={(value) => {
+                            setFlipNameSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Price Customize' key='4'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={FlipPriceColor}
+                          onChange={(e) => {
+                            setFlipPriceColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(FlipPriceSize)}
+                          onChange={(value) => {
+                            setFlipPriceSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Description Customize' key='5'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={FlipDescriptionColor}
+                          onChange={(e) => {
+                            setFlipDescriptionColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(FlipDescriptionSize)}
+                          onChange={(value) => {
+                            setFlipDescriptionSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Button Customize' key='6'>
+                        <p>Button Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={FlipButtonColor}
+                          onChange={(e) => {
+                            setFlipButtonColor(e.target.value);
+                          }}
+                        />
+                        <p>Button Text Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={FlipButtonTextColor}
+                          onChange={(e) => {
+                            setFlipButtonTextColor(e.target.value);
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Font Customize' key='7'>
+                        <p>Font</p>
+                        <Dropdown
+                          options={fontoptions}
+                          onChange={(e) => {
+                            setFlipFont(e.value);
+                          }}
+                          value={FlipFont}
+                          placeholder={'Select an option'}
+                        />
+                      </Panel>
+                    </Collapse>
+                  ) : cardType === 'Pricing' ? (
+                    <Collapse accordion>
+                      <Panel header='Card Color' key='1'>
+                        <p>Color</p>
+                        <input
+                          value={PricingCardColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setPricingCardColor(e.target.value);
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Plan Customize' key='2'>
+                        <p>Color</p>
+                        <input
+                          value={PricingPlanColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setPricingPlanColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(PricingPlanSize)}
+                          onChange={(value) => {
+                            setPricingPlanSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Price Customize' key='3'>
+                        <p>Color</p>
+                        <input
+                          value={PricingPriceColor}
+                          type='color'
+                          name=''
+                          id=''
+                          onChange={(e) => {
+                            setPricingPriceColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(PricingPriceSize)}
+                          onChange={(value) => {
+                            setPricingPriceSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Button Customize' key='4'>
+                        <p>Button Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={PricingButtonColor}
+                          onChange={(e) => {
+                            setPricingButtonColor(e.target.value);
+                          }}
+                        />
+                        <p>Button Text Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={PricingButtonTextColor}
+                          onChange={(e) => {
+                            setPricingButtonTextColor(e.target.value);
+                          }}
+                        />
+                      </Panel>
+                      <Panel header='Feature Customize' key='5'>
+                        <p>Color</p>
+                        <input
+                          type='color'
+                          name=''
+                          id=''
+                          value={PricingFeatureColor}
+                          onChange={(e) => {
+                            setPricingFeatureColor(e.target.value);
+                          }}
+                        />
+                        <p>Font Size</p>
+                        <Slider
+                          defaultValue={parseInt(PricingFeatureSize)}
+                          onChange={(value) => {
+                            setPricingFeatureSize(value.toString());
+                          }}
+                        />
+                      </Panel>
+
+                      <Panel header='Font Customize' key='6'>
+                        <p>Font</p>
+                        <Dropdown
+                          options={fontoptions}
+                          onChange={(e) => {
+                            setPricingFont(e.value);
+                          }}
+                          value={PricingFont}
+                          placeholder={'Select an option'}
+                        />
+                      </Panel>
+                    </Collapse>
+                  ) : (
+                    ''
+                  )
                 ) : (
                   ''
                 )}
@@ -823,7 +812,7 @@ const UserArea = () => {
                   FlipButtonTextColor={FlipButtonTextColor}
                   FlipFont={FlipFont}
                 ></FlipCard>
-              ) : (
+              ) : cardType === 'Pricing' ? (
                 <PricingCard
                   planName={PricingPlanName}
                   planPrice={PricingPlanPrice}
@@ -833,7 +822,19 @@ const UserArea = () => {
                   planfeature3={PricingFeature3}
                   planfeature4={PricingFeature4}
                   planfeature5={PricingFeature5}
+                  PricingCardColor={PricingCardColor}
+                  PricingPlanColor={PricingPlanColor}
+                  PricingPlanSize={PricingPlanSize}
+                  PricingPriceColor={PricingPriceColor}
+                  PricingPriceSize={PricingPriceSize}
+                  PricingButtonColor={PricingButtonColor}
+                  PricingButtonTextColor={PricingButtonTextColor}
+                  PricingFeatureColor={PricingFeatureColor}
+                  PricingFeatureSize={PricingFeatureSize}
+                  PricingFont={PricingFont}
                 ></PricingCard>
+              ) : (
+                ''
               )}
             </div>
           ) : (

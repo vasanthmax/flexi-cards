@@ -10,21 +10,63 @@ const PricingCard = ({
   planfeature3,
   planfeature4,
   planfeature5,
+  PricingCardColor,
+  PricingPlanColor,
+  PricingPlanSize,
+  PricingPriceColor,
+  PricingPriceSize,
+  PricingButtonColor,
+  PricingButtonTextColor,
+  PricingFeatureColor,
+  PricingFeatureSize,
+  PricingFont,
 }) => {
   return (
-    <div className='PricingCard'>
-      <h3 className='plan-pricing'>{planName}</h3>
-      <h1 className='price'>
+    <div
+      className='PricingCard'
+      style={{
+        background: `${PricingCardColor}`,
+        fontFamily: `${PricingFont}`,
+      }}
+    >
+      <h3
+        className='plan-pricing'
+        style={{
+          fontSize: `${PricingPlanSize}px`,
+          color: `${PricingPlanColor}`,
+        }}
+      >
+        {planName}
+      </h3>
+      <h1
+        className='price'
+        style={{
+          fontSize: `${PricingPriceSize}px`,
+          color: `${PricingPriceColor}`,
+        }}
+      >
         {planPrice} <span>INR</span>
       </h1>
       <a href={planLink}>
-        <button>Get Started</button>
+        <button
+          style={{
+            background: `${PricingButtonColor}`,
+            color: `${PricingButtonTextColor}`,
+          }}
+        >
+          Get Started
+        </button>
       </a>
       <ul>
         {planfeature1 === '' ? (
           ''
         ) : (
-          <li>
+          <li
+            style={{
+              fontSize: `${PricingFeatureSize}px`,
+              color: `${PricingFeatureColor}`,
+            }}
+          >
             <span>
               <img src={Tick} alt='' />
             </span>{' '}
@@ -34,7 +76,12 @@ const PricingCard = ({
         {planfeature2 === '' ? (
           ''
         ) : (
-          <li>
+          <li
+            style={{
+              fontSize: `${PricingFeatureSize}px`,
+              color: `${PricingFeatureColor}`,
+            }}
+          >
             <span>
               <img src={Tick} alt='' />
             </span>{' '}
@@ -44,7 +91,12 @@ const PricingCard = ({
         {planfeature3 === '' ? (
           ''
         ) : (
-          <li>
+          <li
+            style={{
+              fontSize: `${PricingFeatureSize}px`,
+              color: `${PricingFeatureColor}`,
+            }}
+          >
             <span>
               <img src={Tick} alt='' />
             </span>{' '}
@@ -54,7 +106,12 @@ const PricingCard = ({
         {planfeature4 === '' ? (
           ''
         ) : (
-          <li>
+          <li
+            style={{
+              fontSize: `${PricingFeatureSize}px`,
+              color: `${PricingFeatureColor}`,
+            }}
+          >
             <span>
               <img src={Tick} alt='' />
             </span>{' '}
@@ -64,7 +121,12 @@ const PricingCard = ({
         {planfeature5 === '' ? (
           ''
         ) : (
-          <li>
+          <li
+            style={{
+              fontSize: `${PricingFeatureSize}px`,
+              color: `${PricingFeatureColor}`,
+            }}
+          >
             <span>
               <img src={Tick} alt='' />
             </span>{' '}
