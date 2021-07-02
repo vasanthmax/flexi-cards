@@ -1,43 +1,109 @@
-import React, { useState } from "react";
-import Tabletop from "tabletop";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
-import Card from "../components/Card";
-import { Collapse } from "antd";
-import { Slider, Switch } from "antd";
-
+import React, { useState } from 'react';
+import Tabletop from 'tabletop';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import Card from '../components/Card';
+import { Collapse } from 'antd';
+import { Slider, Switch } from 'antd';
+import FlipCard from '../components/flipCard';
+import PricingCard from '../components/pricingCard';
 const { Panel } = Collapse;
 
 const UserArea = () => {
-  const [cardColor, setCardColor] = useState("#ffffff");
-  const options = ["one", "two", "three"];
-  const defaultOption = options[0];
-  const [id, setId] = useState("");
+  const [cardType, setCardType] = useState('');
+  const [cardColor, setCardColor] = useState('#ffffff');
+  const options = ['Normal', 'Flip', 'Pricing'];
+  const [id, setId] = useState('');
   const [singleCard, setSinglecard] = useState();
   const [keys, setkey] = useState([]);
-  const AvatarShape = ["Round", "Square", "Rounded square"];
+  const AvatarShape = ['Round', 'Square', 'Rounded square'];
   const defaultShape = AvatarShape[0];
   const [avatar, setAvatarShape] = useState(defaultShape);
-  const [nameColor, setnameColor] = useState("#000000");
-  const [nameSize, setnameSize] = useState("21");
-  const [positionColor, setpositionColor] = useState("#777777");
-  const [positionSize, setpositionSize] = useState("18");
-  const [titleSize, setTitleSize] = useState("21");
-  const [titleColor, setTitleColor] = useState("#000000");
-  const [reviewSize, setReviewSize] = useState("17");
-  const [reviewColor, setReviewColor] = useState("#777777");
-  const [serviceColor, setServiceColor] = useState("#000000");
-  const [serviceSize, setServiceSize] = useState("14");
+  const [nameColor, setnameColor] = useState('#000000');
+  const [nameSize, setnameSize] = useState('21');
+  const [positionColor, setpositionColor] = useState('#777777');
+  const [positionSize, setpositionSize] = useState('18');
+  const [titleSize, setTitleSize] = useState('21');
+  const [titleColor, setTitleColor] = useState('#000000');
+  const [reviewSize, setReviewSize] = useState('17');
+  const [reviewColor, setReviewColor] = useState('#777777');
+
+  const [serviceColor, setServiceColor] = useState('#000000');
+  const [serviceSize, setServiceSize] = useState('14');
   const dropdown2 = [
-    "Photo",
-    "Name",
-    "Title",
-    "Ratings",
-    "Position",
-    "Review",
-    "Logo",
-    "Service",
+    'Photo',
+    'Name',
+    'Title',
+    'Ratings',
+    'Position',
+    'Review',
+    'Logo',
+    'Service',
+    'Default',
   ];
+  const flipcardDropdown = [
+    'Title',
+    'Name',
+    'Price',
+    'Photo',
+    'Description',
+    'Goto',
+  ];
+  const pricingDropdown = [
+    'Plan Name',
+    'Plan Price',
+    'Plan Link',
+    'Plan Feature 1',
+    'Plan Feature 2',
+    'Plan Feature 3',
+    'Plan Feature 4',
+    'Plan Feature 5',
+  ];
+  // FlipCard Constants
+  const [Fliptitle, setFlipTitle] = useState('Title');
+  const [FlipName, setFlipName] = useState('Name');
+  const [FlipPhoto, setFlipPhoto] = useState(
+    'https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'
+  );
+  const [FlipPrice, setFlipPrice] = useState('$Price');
+  const [FlipDescription, setFlipDescription] = useState(
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
+  );
+  const [Goto, setGoto] = useState('https://google.com');
+  //flipCardEditables
+  const [FlipTitleSize, setFlipTitleSize] = useState('20');
+  const [FlipTitleColor, setFlipTitleColor] = useState('#000000');
+  const [FlipCardColor, setFlipCardColor] = useState('#000000');
+  const [FlipNameSize, setFlipNameSize] = useState('28');
+  const [FlipNameColor, setFlipNameColor] = useState('#ffffff');
+  const [FlipPriceSize, setFlipPriceSize] = useState('20');
+  const [FlipPriceColor, setFlipPriceColor] = useState('#ffffff');
+  const [FlipDescriptionSize, setFlipDescriptionSize] = useState('12');
+  const [FlipDescriptionColor, setFlipDescriptionColor] = useState('#777777');
+  const [FlipButtonColor, setFlipButtonColor] = useState('#fc8f00');
+  const [FlipButtonTextColor, setFlipButtonTextColor] = useState('#ffffff');
+
+  // Pricing Card Constants
+  const [PricingPlanName, setPricingPlanName] = useState('Starter');
+  const [PricingPlanPrice, setPricingPlanPrice] = useState('$1');
+  const [PricingPlanLink, setPricingPlanLink] = useState(
+    'https://www.google.com'
+  );
+  const [PricingFeature1, setPricingFeature1] = useState(
+    'Custom and secure business email'
+  );
+  const [PricingFeature2, setPricingFeature2] = useState(
+    'Custom and secure business email'
+  );
+  const [PricingFeature3, setPricingFeature3] = useState(
+    'Custom and secure business email'
+  );
+  const [PricingFeature4, setPricingFeature4] = useState(
+    'Custom and secure business email'
+  );
+  const [PricingFeature5, setPricingFeature5] = useState(
+    'Custom and secure business email'
+  );
   const fetchData = () => {
     Tabletop.init({
       key: id.toString(),
@@ -58,320 +124,722 @@ const UserArea = () => {
       }
     }
   }
-  const [Title, setTitle] = useState("Title");
+  const [Title, setTitle] = useState('Title');
   const [Photo, setPhoto] = useState(
-    "https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png"
+    'https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png'
   );
-  const [Review, setReview] = useState("review");
-  const [Name, setName] = useState("Name");
-  const [Ratings, setRatings] = useState("5");
-  const [Position, setPosition] = useState("Position");
-  const [Service, setService] = useState("Service");
+  const [Review, setReview] = useState('review');
+  const [Name, setName] = useState('Name');
+  const [Ratings, setRatings] = useState('5');
+  const [Position, setPosition] = useState('Position');
+  const [Service, setService] = useState('Service');
   const [Logo, setLogo] = useState(
-    "https://www.strunkmedia.com/wp-content/uploads/2018/05/bigstock-Print-163213010.png"
+    'https://www.strunkmedia.com/wp-content/uploads/2018/05/bigstock-Print-163213010.png'
   );
   console.log(keys);
   const fontoptions = [
-    "Poppins",
-    "monospace",
-    "Georgia",
-    "Times New Roman",
-    "Arial",
-    "Papyrus",
+    'Poppins',
+    'monospace',
+    'Georgia',
+    'Times New Roman',
+    'Arial',
+    'Papyrus',
   ];
   const fontdefault = fontoptions[0];
   const [fontname, Setfont] = useState(fontdefault);
+  const [FlipFont, setFlipFont] = useState(fontdefault);
+
   return (
-    <div className="userarea">
-      <div className="navigation">
-        <div className="nav-left">
-          <p className="nav-title">User Area</p>
+    <div className='userarea'>
+      <div className='navigation'>
+        <div className='nav-left'>
+          <p className='nav-title'>User Area</p>
         </div>
-        <button className="button-help">
+        <button className='button-help'>
           Help <span>i</span>
         </button>
       </div>
-      <div className="fetch-area">
-        <label htmlFor="sheetid">Sheet Id</label>
-        <div className="fetch-input">
+      <div className='fetch-area'>
+        <label htmlFor='sheetid'>Sheet Id</label>
+        <div className='fetch-input'>
           <input
-            type="text"
-            name="sheetid"
+            type='text'
+            name='sheetid'
             onChange={(e) => setId(e.target.value)}
             value={id}
           />
           <button onClick={fetchData}>Fetch</button>
         </div>
       </div>
-      <div className="card-type">
-        <label htmlFor="cardtype">Card Type</label>
-        <div className="card-select">
+      <div className='card-type'>
+        <label htmlFor='cardtype'>Card Type</label>
+        <div className='card-select'>
           <Dropdown
-            arrowClassName="myArrowClassName"
-            arrowClosed={<span className="arrow-closed" />}
-            arrowOpen={<span className="arrow-open" />}
+            arrowClassName='myArrowClassName'
+            arrowClosed={<span className='arrow-closed' />}
+            arrowOpen={<span className='arrow-open' />}
             options={options}
-            onChange={""}
-            value={defaultOption}
-            placeholder="Select an option"
+            onChange={(e) => {
+              setCardType(e.value);
+            }}
+            value={''}
+            placeholder='Select an Card'
           />
         </div>
       </div>
-      <div className="work-area">
-        <p className="workarea-title">Headings</p>
-        <div className="headings">
-          <div className="element-section">
-            <div className="selector-section">
+      <div className='work-area'>
+        <p className='workarea-title'>Headings</p>
+        <div className='headings'>
+          <div className='element-section'>
+            <div className='selector-section'>
               {singleCard ? (
-                keys.map((ch, index) => {
-                  return (
-                    <div className="selector">
-                      <input type="text" readOnly value={ch.key} />
-                      <div className="dropdown-section">
-                        <Dropdown
-                          arrowClassName="myArrowClassName"
-                          arrowClosed={<span className="arrow-closed" />}
-                          arrowOpen={<span className="arrow-open" />}
-                          options={dropdown2}
-                          onChange={(e) => {
-                            if (e.value == "Title") {
-                              const keyvalue = keys[index]["key"];
-                              setTitle(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Photo") {
-                              const keyvalue = keys[index]["key"];
-                              setPhoto(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Review") {
-                              const keyvalue = keys[index]["key"];
-                              setReview(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Name") {
-                              const keyvalue = keys[index]["key"];
-                              setName(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Ratings") {
-                              const keyvalue = keys[index]["key"];
-                              setRatings(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Logo") {
-                              const keyvalue = keys[index]["key"];
-                              setLogo(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Position") {
-                              const keyvalue = keys[index]["key"];
-                              setPosition(singleCard[keyvalue]);
-                            }
-                            if (e.value == "Service") {
-                              const keyvalue = keys[index]["key"];
-                              setService(singleCard[keyvalue]);
-                            }
-                          }}
-                          value={""}
-                          placeholder="Select an option"
-                        />
+                cardType == 'Normal' ? (
+                  keys.map((ch, index) => {
+                    return (
+                      <div className='selector'>
+                        <input type='text' readOnly value={ch.key} />
+                        <div className='dropdown-section'>
+                          <Dropdown
+                            arrowClassName='myArrowClassName'
+                            arrowClosed={<span className='arrow-closed' />}
+                            arrowOpen={<span className='arrow-open' />}
+                            options={dropdown2}
+                            onChange={(e) => {
+                              if (e.value == 'Title') {
+                                const keyvalue = keys[index]['key'];
+                                setTitle(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Photo') {
+                                const keyvalue = keys[index]['key'];
+                                setPhoto(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Review') {
+                                const keyvalue = keys[index]['key'];
+                                setReview(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Name') {
+                                const keyvalue = keys[index]['key'];
+                                setName(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Ratings') {
+                                const keyvalue = keys[index]['key'];
+                                setRatings(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Logo') {
+                                const keyvalue = keys[index]['key'];
+                                setLogo(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Position') {
+                                const keyvalue = keys[index]['key'];
+                                setPosition(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Service') {
+                                const keyvalue = keys[index]['key'];
+                                setService(singleCard[keyvalue]);
+                              }
+                            }}
+                            value={''}
+                            placeholder='Select an option'
+                          />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })
+                    );
+                  })
+                ) : cardType == 'Flip' ? (
+                  keys.map((ch, index) => {
+                    return (
+                      <div className='selector'>
+                        <input type='text' readOnly value={ch.key} />
+                        <div className='dropdown-section'>
+                          <Dropdown
+                            arrowClassName='myArrowClassName'
+                            arrowClosed={<span className='arrow-closed' />}
+                            arrowOpen={<span className='arrow-open' />}
+                            options={flipcardDropdown}
+                            onChange={(e) => {
+                              if (e.value == 'Title') {
+                                const keyvalue = keys[index]['key'];
+                                setFlipTitle(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Photo') {
+                                const keyvalue = keys[index]['key'];
+                                setFlipPhoto(singleCard[keyvalue]);
+                              }
+
+                              if (e.value == 'Name') {
+                                const keyvalue = keys[index]['key'];
+                                setFlipName(singleCard[keyvalue]);
+                              }
+
+                              if (e.value == 'Description') {
+                                const keyvalue = keys[index]['key'];
+                                setFlipDescription(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Price') {
+                                const keyvalue = keys[index]['key'];
+                                setFlipPrice(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Goto') {
+                                const keyvalue = keys[index]['key'];
+                                setGoto(singleCard[keyvalue]);
+                              }
+                            }}
+                            value={''}
+                            placeholder='Select an option'
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : cardType === 'Pricing' ? (
+                  keys.map((ch, index) => {
+                    return (
+                      <div className='selector'>
+                        <input type='text' readOnly value={ch.key} />
+                        <div className='dropdown-section'>
+                          <Dropdown
+                            arrowClassName='myArrowClassName'
+                            arrowClosed={<span className='arrow-closed' />}
+                            arrowOpen={<span className='arrow-open' />}
+                            options={pricingDropdown}
+                            onChange={(e) => {
+                              if (e.value == 'Plan Name') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingPlanName(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Plan Price') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingPlanPrice(singleCard[keyvalue]);
+                              }
+
+                              if (e.value == 'Plan Link') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingPlanLink(singleCard[keyvalue]);
+                              }
+
+                              if (e.value == 'Plan Feature 1') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingFeature1(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Plan Feature 2') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingFeature2(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Plan Feature 3') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingFeature3(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Plan Feature 4') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingFeature4(singleCard[keyvalue]);
+                              }
+                              if (e.value == 'Plan Feature 5') {
+                                const keyvalue = keys[index]['key'];
+                                setPricingFeature5(singleCard[keyvalue]);
+                              }
+                            }}
+                            value={''}
+                            placeholder='Select an option'
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  'Please Select a Card Type'
+                )
               ) : (
                 <div>
-                  {" "}
-                  <div className="selector">
-                    <input type="text" readOnly />
-                    <div className="dropdown-section">
+                  {' '}
+                  <div className='selector'>
+                    <input type='text' readOnly />
+                    <div className='dropdown-section'>
                       <Dropdown
-                        arrowClassName="myArrowClassName"
-                        arrowClosed={<span className="arrow-closed" />}
-                        arrowOpen={<span className="arrow-open" />}
+                        arrowClassName='myArrowClassName'
+                        arrowClosed={<span className='arrow-closed' />}
+                        arrowOpen={<span className='arrow-open' />}
                         options={options}
-                        onChange={""}
-                        value={defaultOption}
-                        placeholder="Select an option"
+                        onChange={''}
+                        value={''}
+                        placeholder='Select an option'
                       />
                     </div>
                   </div>
-                  <div className="selector">
-                    <input type="text" readOnly />
-                    <div className="dropdown-section">
+                  <div className='selector'>
+                    <input type='text' readOnly />
+                    <div className='dropdown-section'>
                       <Dropdown
-                        arrowClassName="myArrowClassName"
-                        arrowClosed={<span className="arrow-closed" />}
-                        arrowOpen={<span className="arrow-open" />}
+                        arrowClassName='myArrowClassName'
+                        arrowClosed={<span className='arrow-closed' />}
+                        arrowOpen={<span className='arrow-open' />}
                         options={options}
-                        onChange={""}
-                        value={defaultOption}
-                        placeholder="Select an option"
+                        onChange={''}
+                        value={''}
+                        placeholder='Select an option'
                       />
                     </div>
                   </div>
                 </div>
               )}
+              <div className='editable-section'>
+                {cardType === 'Normal' ? (
+                  <Collapse accordion>
+                    <Panel header='Card Color' key='1'>
+                      <p>Color</p>
+                      <input
+                        value={cardColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setCardColor(e.target.value);
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Avatar Customize' key='2'>
+                      <p>Shape</p>
+                      <Dropdown
+                        options={AvatarShape}
+                        onChange={(e) => {
+                          setAvatarShape(e.value);
+                        }}
+                        value={avatar}
+                        placeholder={'Select an option'}
+                      />
+                    </Panel>
+                    <Panel header='Name Customize' key='3'>
+                      <p>Color</p>
+                      <input
+                        value={nameColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setnameColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(nameSize)}
+                        onChange={(value) => {
+                          setnameSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Position Customize' key='4'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={positionColor}
+                        onChange={(e) => {
+                          setpositionColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(positionSize)}
+                        onChange={(value) => {
+                          setpositionSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Title Customize' key='5'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={titleColor}
+                        onChange={(e) => {
+                          setTitleColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(titleSize)}
+                        onChange={(value) => {
+                          setTitleSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Review Customize' key='6'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={reviewColor}
+                        onChange={(e) => {
+                          setReviewColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(reviewSize)}
+                        onChange={(value) => {
+                          setReviewSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Service Customize' key='7'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={serviceColor}
+                        onChange={(e) => {
+                          setServiceColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(serviceSize)}
+                        onChange={(value) => {
+                          setServiceSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Font Customize' key='8'>
+                      <p>Font</p>
+                      <Dropdown
+                        options={fontoptions}
+                        onChange={(e) => {
+                          Setfont(e.value);
+                        }}
+                        value={fontname}
+                        placeholder={'Select an option'}
+                      />
+                    </Panel>
+                  </Collapse>
+                ) : cardType === 'Flip' ? (
+                  <Collapse accordion>
+                    <Panel header='Title Customize' key='1'>
+                      <p>Color</p>
+                      <input
+                        value={FlipTitleColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setFlipTitleColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(FlipTitleSize)}
+                        onChange={(value) => {
+                          setFlipTitleSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Card Color' key='2'>
+                      <p>Color</p>
+                      <input
+                        value={FlipCardColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setFlipCardColor(e.target.value);
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Name Customize' key='3'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={FlipNameColor}
+                        onChange={(e) => {
+                          setFlipNameColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(FlipNameSize)}
+                        onChange={(value) => {
+                          setFlipNameSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Price Customize' key='4'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={FlipPriceColor}
+                        onChange={(e) => {
+                          setFlipPriceColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(FlipPriceSize)}
+                        onChange={(value) => {
+                          setFlipPriceSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Description Customize' key='5'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={FlipDescriptionColor}
+                        onChange={(e) => {
+                          setFlipDescriptionColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(FlipDescriptionSize)}
+                        onChange={(value) => {
+                          setFlipDescriptionSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Button Customize' key='6'>
+                      <p>Button Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={FlipButtonColor}
+                        onChange={(e) => {
+                          setFlipButtonColor(e.target.value);
+                        }}
+                      />
+                      <p>Button Text Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={FlipButtonTextColor}
+                        onChange={(e) => {
+                          setFlipButtonTextColor(e.target.value);
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Font Customize' key='7'>
+                      <p>Font</p>
+                      <Dropdown
+                        options={fontoptions}
+                        onChange={(e) => {
+                          setFlipFont(e.value);
+                        }}
+                        value={FlipFont}
+                        placeholder={'Select an option'}
+                      />
+                    </Panel>
+                  </Collapse>
+                ) : cardType === 'Pricing' ? (
+                  <Collapse accordion>
+                    <Panel header='Card Color' key='1'>
+                      <p>Color</p>
+                      <input
+                        value={cardColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setCardColor(e.target.value);
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Avatar Customize' key='2'>
+                      <p>Shape</p>
+                      <Dropdown
+                        options={AvatarShape}
+                        onChange={(e) => {
+                          setAvatarShape(e.value);
+                        }}
+                        value={avatar}
+                        placeholder={'Select an option'}
+                      />
+                    </Panel>
+                    <Panel header='Name Customize' key='3'>
+                      <p>Color</p>
+                      <input
+                        value={nameColor}
+                        type='color'
+                        name=''
+                        id=''
+                        onChange={(e) => {
+                          setnameColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(nameSize)}
+                        onChange={(value) => {
+                          setnameSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Position Customize' key='4'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={positionColor}
+                        onChange={(e) => {
+                          setpositionColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(positionSize)}
+                        onChange={(value) => {
+                          setpositionSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Title Customize' key='5'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={titleColor}
+                        onChange={(e) => {
+                          setTitleColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(titleSize)}
+                        onChange={(value) => {
+                          setTitleSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Review Customize' key='6'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={reviewColor}
+                        onChange={(e) => {
+                          setReviewColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(reviewSize)}
+                        onChange={(value) => {
+                          setReviewSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Service Customize' key='7'>
+                      <p>Color</p>
+                      <input
+                        type='color'
+                        name=''
+                        id=''
+                        value={serviceColor}
+                        onChange={(e) => {
+                          setServiceColor(e.target.value);
+                        }}
+                      />
+                      <p>Font Size</p>
+                      <Slider
+                        defaultValue={parseInt(serviceSize)}
+                        onChange={(value) => {
+                          setServiceSize(value.toString());
+                        }}
+                      />
+                    </Panel>
+                    <Panel header='Font Customize' key='8'>
+                      <p>Font</p>
+                      <Dropdown
+                        options={fontoptions}
+                        onChange={(e) => {
+                          Setfont(e.value);
+                        }}
+                        value={fontname}
+                        placeholder={'Select an option'}
+                      />
+                    </Panel>
+                  </Collapse>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
           </div>
           {singleCard ? (
-            <div className="design-area">
-              <Collapse accordion>
-                <Panel header="Card Color" key="1">
-                  <p>Color</p>
-                  <input
-                    value={cardColor}
-                    type="color"
-                    name=""
-                    id=""
-                    onChange={(e) => {
-                      setCardColor(e.target.value);
-                    }}
-                  />
-                </Panel>
-                <Panel header="Avatar Customize" key="2">
-                  <p>Shape</p>
-                  <Dropdown
-                    options={AvatarShape}
-                    onChange={(e) => {
-                      setAvatarShape(e.value);
-                    }}
-                    value={avatar}
-                    placeholder={"Select an option"}
-                  />
-                </Panel>
-                <Panel header="Name Customize" key="3">
-                  <p>Color</p>
-                  <input
-                    value={nameColor}
-                    type="color"
-                    name=""
-                    id=""
-                    onChange={(e) => {
-                      setnameColor(e.target.value);
-                    }}
-                  />
-                  <p>Font Size</p>
-                  <Slider
-                    defaultValue={parseInt(nameSize)}
-                    onChange={(value) => {
-                      setnameSize(value.toString());
-                    }}
-                  />
-                </Panel>
-                <Panel header="Position Customize" key="4">
-                  <p>Color</p>
-                  <input
-                    type="color"
-                    name=""
-                    id=""
-                    value={positionColor}
-                    onChange={(e) => {
-                      setpositionColor(e.target.value);
-                    }}
-                  />
-                  <p>Font Size</p>
-                  <Slider
-                    defaultValue={parseInt(positionSize)}
-                    onChange={(value) => {
-                      setpositionSize(value.toString());
-                    }}
-                  />
-                </Panel>
-                <Panel header="Title Customize" key="5">
-                  <p>Color</p>
-                  <input
-                    type="color"
-                    name=""
-                    id=""
-                    value={titleColor}
-                    onChange={(e) => {
-                      setTitleColor(e.target.value);
-                    }}
-                  />
-                  <p>Font Size</p>
-                  <Slider
-                    defaultValue={parseInt(titleSize)}
-                    onChange={(value) => {
-                      setTitleSize(value.toString());
-                    }}
-                  />
-                </Panel>
-                <Panel header="Review Customize" key="6">
-                  <p>Color</p>
-                  <input
-                    type="color"
-                    name=""
-                    id=""
-                    value={reviewColor}
-                    onChange={(e) => {
-                      setReviewColor(e.target.value);
-                    }}
-                  />
-                  <p>Font Size</p>
-                  <Slider
-                    defaultValue={parseInt(reviewSize)}
-                    onChange={(value) => {
-                      setReviewSize(value.toString());
-                    }}
-                  />
-                </Panel>
-                <Panel header="Service Customize" key="7">
-                  <p>Color</p>
-                  <input
-                    type="color"
-                    name=""
-                    id=""
-                    value={serviceColor}
-                    onChange={(e) => {
-                      setServiceColor(e.target.value);
-                    }}
-                  />
-                  <p>Font Size</p>
-                  <Slider
-                    defaultValue={parseInt(serviceSize)}
-                    onChange={(value) => {
-                      setServiceSize(value.toString());
-                    }}
-                  />
-                </Panel>
-                <Panel header="Font Customize" key="8">
-                  <p>Font</p>
-                  <Dropdown
-                    options={fontoptions}
-                    onChange={(e) => {
-                      Setfont(e.value);
-                    }}
-                    value={fontname}
-                    placeholder={"Select an option"}
-                  />
-                </Panel>
-              </Collapse>
+            <div className='design-area'>
+              {cardType == 'Normal' ? (
+                <Card
+                  Name={Name}
+                  Photo={Photo}
+                  Review={Review}
+                  Title={Title}
+                  Ratings={Ratings}
+                  Companylogo={Logo}
+                  Service={Service}
+                  Position={Position}
+                  cardColor={cardColor}
+                  avatarShape={avatar}
+                  nameColor={nameColor}
+                  nameSize={nameSize}
+                  positionColor={positionColor}
+                  positionSize={positionSize}
+                  titleColor={titleColor}
+                  titleSize={titleSize}
+                  reviewColor={reviewColor}
+                  reviewSize={reviewSize}
+                  serviceColor={serviceColor}
+                  serviceSize={serviceSize}
+                  fontname={fontname}
+                ></Card>
+              ) : cardType == 'Flip' ? (
+                <FlipCard
+                  Name={FlipName}
+                  Title={Fliptitle}
+                  Price={FlipPrice}
+                  Description={FlipDescription}
+                  Goto={Goto}
+                  Photo={FlipPhoto}
+                  flipTitleSize={FlipTitleSize}
+                  flipTitleColor={FlipTitleColor}
+                  FlipNameColor={FlipNameColor}
+                  FlipNameSize={FlipNameSize}
+                  FlipCardColor={FlipCardColor}
+                  FlipPriceColor={FlipPriceColor}
+                  FlipPriceSize={FlipPriceSize}
+                  FlipDescriptionColor={FlipDescriptionColor}
+                  FlipDescriptionSize={FlipDescriptionSize}
+                  FlipButtonColor={FlipButtonColor}
+                  FlipButtonTextColor={FlipButtonTextColor}
+                  FlipFont={FlipFont}
+                ></FlipCard>
+              ) : (
+                <PricingCard
+                  planName={PricingPlanName}
+                  planPrice={PricingPlanPrice}
+                  planLink={PricingPlanLink}
+                  planfeature1={PricingFeature1}
+                  planfeature2={PricingFeature2}
+                  planfeature3={PricingFeature3}
+                  planfeature4={PricingFeature4}
+                  planfeature5={PricingFeature5}
+                ></PricingCard>
+              )}
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
-      </div>
-      <div className="CardArea">
-        <Card
-          Name={Name}
-          Photo={Photo}
-          Review={Review}
-          Title={Title}
-          Ratings={Ratings}
-          Companylogo={Logo}
-          Service={Service}
-          Position={Position}
-          cardColor={cardColor}
-          avatarShape={avatar}
-          nameColor={nameColor}
-          nameSize={nameSize}
-          positionColor={positionColor}
-          positionSize={positionSize}
-          titleColor={titleColor}
-          titleSize={titleSize}
-          reviewColor={reviewColor}
-          reviewSize={reviewSize}
-          serviceColor={serviceColor}
-          serviceSize={serviceSize}
-          fontname={fontname}
-        ></Card>
       </div>
     </div>
   );

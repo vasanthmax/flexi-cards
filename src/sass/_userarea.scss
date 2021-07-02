@@ -1,6 +1,6 @@
 .userarea {
   padding: 40px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 
   .navigation {
     width: 100%;
@@ -90,13 +90,13 @@
       .arrow-open {
         background-color: #000000;
 
-        content: url("../assets/arrow.png");
+        content: url('../assets/arrow.png');
         height: 12px;
         transform: rotate(180deg);
       }
       .arrow-closed {
         background-color: #000000;
-        content: url("../assets/arrow.png");
+        content: url('../assets/arrow.png');
         height: 12px;
       }
       .Dropdown-control {
@@ -128,8 +128,16 @@
       align-items: flex-start;
 
       .element-section {
+        overflow-y: auto;
+        height: 80vh;
         width: 60%;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(155, 155, 155, 0.7) transparent;
+
         .selector-section {
+          .editable-section {
+            width: 70%;
+          }
           .selector {
             display: flex;
             align-items: center;
@@ -155,13 +163,13 @@
               .arrow-open {
                 background-color: #000000;
 
-                content: url("../assets/arrow.png");
+                content: url('../assets/arrow.png');
                 height: 12px;
                 transform: rotate(180deg);
               }
               .arrow-closed {
                 background-color: #000000;
-                content: url("../assets/arrow.png");
+                content: url('../assets/arrow.png');
                 height: 12px;
               }
               .Dropdown-control {
@@ -181,16 +189,26 @@
           }
         }
       }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(155, 155, 155, 0.7);
+        border-radius: 20px;
+        border: transparent;
+      }
       .design-area {
         margin-top: 0px;
         width: 40%;
+        height: 80vh;
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
       }
     }
-  }
-  .CardArea {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
   }
 }
