@@ -7,9 +7,13 @@ import { Collapse } from 'antd';
 import { Slider, Switch } from 'antd';
 import FlipCard from '../components/flipCard';
 import PricingCard from '../components/pricingCard';
+import { FlexiApi } from '../action/FlipAction';
+import { useSelector, useDispatch } from 'react-redux';
+
 const { Panel } = Collapse;
 
 const UserArea = () => {
+  const selector = useSelector((state) => state.flipReducer.flip);
   const [cardType, setCardType] = useState('');
   const [cardColor, setCardColor] = useState('#ffffff');
   const options = ['Normal', 'Flip', 'Pricing'];
@@ -160,6 +164,46 @@ const UserArea = () => {
   const [fontname, Setfont] = useState(fontdefault);
   const [FlipFont, setFlipFont] = useState(fontdefault);
   const [PricingFont, setPricingFont] = useState(fontdefault);
+
+  //FlipKeys
+  const [FlipTitleKey, setFlipTitleKey] = useState('');
+  const [FlipPhotoKey, setFlipPhotoKey] = useState('');
+  const [FlipNameKey, setFlipNameKey] = useState('');
+  const [FlipDescKey, setFlipDescKey] = useState('');
+  const [FlipPriceKey, setFlipPriceKey] = useState('');
+  const [FlipGotoKey, setFlipGotoKey] = useState('');
+
+  //api backend
+  const dispatch = useDispatch();
+
+  const saveToDatabase = () => {
+    if (cardType == 'Flip') {
+      const FlexiApiDetails = {
+        sheetid: id,
+        cardtype: cardType,
+        namekey: FlipNameKey,
+        titlekey: FlipTitleKey,
+        pricekey: FlipPriceKey,
+        descriptionkey: FlipDescKey,
+        photokey: FlipPhotoKey,
+        gotokey: FlipGotoKey,
+        titlesize: FlipTitleSize,
+        titlecolor: FlipTitleColor,
+        namesize: FlipNameSize,
+        namecolor: FlipNameColor,
+        cardcolor: FlipCardColor,
+        pricesize: FlipPriceSize,
+        pricecolor: FlipPriceColor,
+        descriptionsize: FlipDescriptionSize,
+        descriptioncolor: FlipDescriptionColor,
+        buttoncolor: FlipButtonColor,
+        buttontextcolor: FlipButtonTextColor,
+        textfont: FlipFont,
+      };
+      dispatch(FlexiApi(FlexiApiDetails));
+    }
+  };
+
   return (
     <div className='userarea'>
       <div className='navigation'>
@@ -270,28 +314,34 @@ const UserArea = () => {
                             onChange={(e) => {
                               if (e.value == 'Title') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipTitleKey(keyvalue);
                                 setFlipTitle(singleCard[keyvalue]);
                               }
                               if (e.value == 'Photo') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipPhotoKey(keyvalue);
                                 setFlipPhoto(singleCard[keyvalue]);
                               }
 
                               if (e.value == 'Name') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipNameKey(keyvalue);
                                 setFlipName(singleCard[keyvalue]);
                               }
 
                               if (e.value == 'Description') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipDescKey(keyvalue);
                                 setFlipDescription(singleCard[keyvalue]);
                               }
                               if (e.value == 'Price') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipPriceKey(keyvalue);
                                 setFlipPrice(singleCard[keyvalue]);
                               }
                               if (e.value == 'Goto') {
                                 const keyvalue = keys[index]['key'];
+                                setFlipGotoKey(keyvalue);
                                 setGoto(singleCard[keyvalue]);
                               }
                             }}
@@ -841,6 +891,12 @@ const UserArea = () => {
             ''
           )}
         </div>
+        <button onClick={() => saveToDatabase()}>Save</button>
+        <a
+          href={`http://localhost:3000/${cardType.toLowerCase()}?id=${selector}`}
+        >
+          <button>Review All</button>
+        </a>
       </div>
     </div>
   );
