@@ -15,19 +15,21 @@ const FlipCardGet = () => {
   const selector = useSelector((state) => state.flipgetReducer.flipcard?.data);
 
   console.log(selector);
-  if (selector) {
-    Tabletop.init({
-      key: selector.sheetid,
-      simpleSheet: true,
-    })
-
-      .then((lol) => {
-        setData([...lol]);
+  useEffect(() => {
+    if (selector) {
+      Tabletop.init({
+        key: selector.sheetid,
+        simpleSheet: true,
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+
+        .then((lol) => {
+          setData([...lol]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [selector]);
   // console.log(data);
   data.filter((ch) => ch.visiblity === 'yes');
   return (

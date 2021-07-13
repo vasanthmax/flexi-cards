@@ -9,12 +9,16 @@ import FlipCard from '../components/flipCard';
 import PricingCard from '../components/pricingCard';
 import { FlexiApi } from '../action/FlipAction';
 import { useSelector, useDispatch } from 'react-redux';
+import { FlexiPricingApi } from '../action/PricingCard';
+import { FlexiNormalApi } from '../action/NormalCard';
 
 const { Panel } = Collapse;
 
 const UserArea = () => {
-  const selector = useSelector((state) => state.flipReducer.flip);
   const [cardType, setCardType] = useState('');
+  const selector = useSelector((state) => state.flipReducer.flip);
+  const selectorPricing = useSelector((state) => state.pricingReducer.pricing);
+  const selectorNormal = useSelector((state) => state.normalReducer.normal);
   const [cardColor, setCardColor] = useState('#ffffff');
   const options = ['Normal', 'Flip', 'Pricing'];
   const [id, setId] = useState('');
@@ -173,6 +177,26 @@ const UserArea = () => {
   const [FlipPriceKey, setFlipPriceKey] = useState('');
   const [FlipGotoKey, setFlipGotoKey] = useState('');
 
+  //PricingKeys
+  const [PricingPlanNameKey, setPricingPlanNameKey] = useState('');
+  const [PricingPlanLinkKey, setPricingPlanLinkKey] = useState('');
+  const [PricingPriceKey, setPricingPriceKey] = useState('');
+  const [PricingFeature1Key, setPricingFeature1Key] = useState('');
+  const [PricingFeature2Key, setPricingFeature2Key] = useState('');
+  const [PricingFeature3Key, setPricingFeature3Key] = useState('');
+  const [PricingFeature4Key, setPricingFeature4Key] = useState('');
+  const [PricingFeature5Key, setPricingFeature5Key] = useState('');
+
+  //NormalCardKeys
+  const [Namekey, setNameKey] = useState('');
+  const [Photokey, setPhotoKey] = useState('');
+  const [Reviewkey, setReviewKey] = useState('');
+  const [Servicekey, setServiceKey] = useState('');
+  const [Titlekey, setTitleKey] = useState('');
+  const [Ratingskey, setRatingsKey] = useState('');
+  const [Logokey, setLogoKey] = useState('');
+  const [Positionkey, setPositionKey] = useState('');
+
   //api backend
   const dispatch = useDispatch();
 
@@ -201,6 +225,62 @@ const UserArea = () => {
         textfont: FlipFont,
       };
       dispatch(FlexiApi(FlexiApiDetails));
+    }
+    if (cardType == 'Pricing') {
+      console.log('princing');
+      const FlexiApiDetails = {
+        sheetid: id,
+        cardtype: cardType,
+        plannamekey: PricingPlanNameKey,
+        planpricekey: PricingPriceKey,
+        planlink: PricingPlanLinkKey,
+        planfeature1key: PricingFeature1Key,
+        planfeature2key: PricingFeature2Key,
+        planfeature3key: PricingFeature3Key,
+        planfeature4key: PricingFeature4Key,
+        planfeature5key: PricingFeature5Key,
+        pricingcardcolor: PricingCardColor,
+        pricingplansize: PricingPlanSize,
+        princingplancolor: PricingPlanColor,
+        pricingpricesize: PricingPriceSize,
+        pricingpricecolor: PricingPriceColor,
+        pricingbuttoncolor: PricingButtonColor,
+        pricingbuttontextcolor: PricingButtonTextColor,
+        pricingfeaturecolor: PricingFeatureColor,
+        princingfeaturesize: PricingFeatureSize,
+        pricingfont: PricingFont,
+      };
+      dispatch(FlexiPricingApi(FlexiApiDetails));
+    }
+
+    if (cardType === 'Normal') {
+      const FlexiApiDetails = {
+        sheetid: id,
+        cardtype: cardType,
+        namekey: Namekey,
+        photokey: Photokey,
+        reviewkey: Reviewkey,
+        titlekey: Titlekey,
+        ratingskey: Ratingskey,
+        logokey: Logokey,
+        servicekey: Servicekey,
+        positionkey: Positionkey,
+        cardcolor: cardColor,
+        avatarshape: avatar,
+        namecolor: nameColor,
+        namesize: nameSize,
+        positioncolor: positionColor,
+        positionsize: positionSize,
+        titlecolor: titleColor,
+        titlesize: titleSize,
+        reviewcolor: reviewColor,
+        reviewsize: reviewSize,
+        servicecolor: serviceColor,
+        servicesize: serviceSize,
+        fontname: fontname,
+      };
+      console.log(FlexiApiDetails);
+      dispatch(FlexiNormalApi(FlexiApiDetails));
     }
   };
 
@@ -262,34 +342,42 @@ const UserArea = () => {
                             onChange={(e) => {
                               if (e.value == 'Title') {
                                 const keyvalue = keys[index]['key'];
+                                setTitleKey(keyvalue);
                                 setTitle(singleCard[keyvalue]);
                               }
                               if (e.value == 'Photo') {
                                 const keyvalue = keys[index]['key'];
+                                setPhotoKey(keyvalue);
                                 setPhoto(singleCard[keyvalue]);
                               }
                               if (e.value == 'Review') {
                                 const keyvalue = keys[index]['key'];
+                                setReviewKey(keyvalue);
                                 setReview(singleCard[keyvalue]);
                               }
                               if (e.value == 'Name') {
                                 const keyvalue = keys[index]['key'];
+                                setNameKey(keyvalue);
                                 setName(singleCard[keyvalue]);
                               }
                               if (e.value == 'Ratings') {
                                 const keyvalue = keys[index]['key'];
+                                setRatingsKey(keyvalue);
                                 setRatings(singleCard[keyvalue]);
                               }
                               if (e.value == 'Logo') {
                                 const keyvalue = keys[index]['key'];
+                                setLogoKey(keyvalue);
                                 setLogo(singleCard[keyvalue]);
                               }
                               if (e.value == 'Position') {
                                 const keyvalue = keys[index]['key'];
+                                setPositionKey(keyvalue);
                                 setPosition(singleCard[keyvalue]);
                               }
                               if (e.value == 'Service') {
                                 const keyvalue = keys[index]['key'];
+                                setServiceKey(keyvalue);
                                 setService(singleCard[keyvalue]);
                               }
                             }}
@@ -366,36 +454,44 @@ const UserArea = () => {
                             onChange={(e) => {
                               if (e.value == 'Plan Name') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingPlanNameKey(keyvalue);
                                 setPricingPlanName(singleCard[keyvalue]);
                               }
                               if (e.value == 'Plan Price') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingPriceKey(keyvalue);
                                 setPricingPlanPrice(singleCard[keyvalue]);
                               }
 
                               if (e.value == 'Plan Link') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingPlanLinkKey(keyvalue);
                                 setPricingPlanLink(singleCard[keyvalue]);
                               }
 
                               if (e.value == 'Plan Feature 1') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingFeature1Key(keyvalue);
                                 setPricingFeature1(singleCard[keyvalue]);
                               }
                               if (e.value == 'Plan Feature 2') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingFeature2Key(keyvalue);
                                 setPricingFeature2(singleCard[keyvalue]);
                               }
                               if (e.value == 'Plan Feature 3') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingFeature3Key(keyvalue);
                                 setPricingFeature3(singleCard[keyvalue]);
                               }
                               if (e.value == 'Plan Feature 4') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingFeature4Key(keyvalue);
                                 setPricingFeature4(singleCard[keyvalue]);
                               }
                               if (e.value == 'Plan Feature 5') {
                                 const keyvalue = keys[index]['key'];
+                                setPricingFeature5Key(keyvalue);
                                 setPricingFeature5(singleCard[keyvalue]);
                               }
                             }}
@@ -893,7 +989,13 @@ const UserArea = () => {
         </div>
         <button onClick={() => saveToDatabase()}>Save</button>
         <a
-          href={`http://localhost:3000/${cardType.toLowerCase()}?id=${selector}`}
+          href={
+            cardType === 'Flip'
+              ? `http://localhost:3000/${cardType.toLowerCase()}?id=${selector}`
+              : cardType === 'Pricing'
+              ? `http://localhost:3000/${cardType.toLowerCase()}?id=${selectorPricing}`
+              : `http://localhost:3000/${cardType.toLowerCase()}?id=${selectorNormal}`
+          }
         >
           <button>Review All</button>
         </a>

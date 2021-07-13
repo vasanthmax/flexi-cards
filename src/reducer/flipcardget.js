@@ -1,5 +1,5 @@
 const initState = {
-  flipCard: [],
+  flipcard: [],
 };
 
 const flipgetReducer = (state = initState, action) => {
