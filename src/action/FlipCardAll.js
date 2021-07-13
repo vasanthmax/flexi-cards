@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PricingCardAll } from './PricingCardAll';
 
 export const FlipCardAll = () => {
   return async function (dispatch) {

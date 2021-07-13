@@ -17,14 +17,8 @@ const Dashboard = () => {
   );
   const dispatch = useDispatch();
 
-  const actionCreator = () => [
-    dispatch(NormalCardAll()),
-    dispatch(PricingCardAll()),
-    dispatch(FlipCardAll()),
-  ];
-
   useEffect(() => {
-    actionCreator();
+    dispatch(FlipCardAll());
   }, []);
 
   console.log(PricingCardSelector);
@@ -75,6 +69,11 @@ const Dashboard = () => {
   return (
     <div className='dashboard'>
       <h1>Dashboard</h1>
+      <div style={{ float: 'right' }}>
+        <a href='http://localhost:3000/userarea'>
+          <button>Add New</button>
+        </a>
+      </div>
       <Table columns={columns} dataSource={data} pagination={false} />
     </div>
   );

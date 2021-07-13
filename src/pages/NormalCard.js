@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FlexiNormalApiGet } from '../action/NormalCardget';
 import Tabletop from 'tabletop';
 import Card from '../components/Card';
-import { selectColor } from 'debug';
 const NormalCardGet = () => {
   const location = new URLSearchParams(window.location.search).get('id');
   const [data, setData] = useState([]);
