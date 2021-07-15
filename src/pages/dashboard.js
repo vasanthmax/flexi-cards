@@ -1,30 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tag, Space } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlipCardAll } from '../action/FlipCardAll';
-import { NormalCardAll } from '../action/NormalCardAll';
-import { PricingCardAll } from '../action/PricingCardAll';
+import { FlexiApiDelete } from '../action/FlipDelete';
+import { DeleteFilled, EditFilled } from '@ant-design/icons';
+import { Modal } from 'antd';
 
 const Dashboard = () => {
-  const FlipCardSelector = useSelector(
-    (state) => state.flipallReducer.flipcardall?.data
-  );
-  const NormalCardSelector = useSelector(
-    (state) => state.normalallReducer.normalcardall?.data
-  );
-  const PricingCardSelector = useSelector(
-    (state) => state.pricingallReducer.pricingcardall?.data
-  );
   const dispatch = useDispatch();
 
+  const [deletelinkid, setDeleteLinkid] = useState('');
+  const [deletecardtype, setDeletecardtype] = useState('');
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = (keyvalue, cardtype) => {
+    console.log(keyvalue);
+    setDeleteLinkid(keyvalue);
+    setDeletecardtype(cardtype);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    console.log(deletelinkid);
+    dispatch(FlexiApiDelete(deletelinkid, deletecardtype));
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const FlipCardSelector = useSelector(
+    (state) => state.flipallReducer.flipcardall[0]
+  );
+  const NormalCardSelector = useSelector(
+    (state) => state.flipallReducer.flipcardall[1]
+  );
+  const PricingCardSelector = useSelector(
+    (state) => state.flipallReducer.flipcardall[2]
+  );
+  const cardDelete = useSelector((state) => state.flipdeleteReducer.flip?.data);
+  console.log(cardDelete);
   useEffect(() => {
     dispatch(FlipCardAll());
-  }, []);
+  }, [dispatch, cardDelete]);
 
-  console.log(PricingCardSelector);
-  console.log(NormalCardSelector);
-  console.log(FlipCardSelector);
-
+  let MixedArray = [];
+  if (FlipCardSelector && PricingCardSelector && NormalCardSelector) {
+    MixedArray = [
+      ...FlipCardSelector,
+      ...PricingCardSelector,
+      ...NormalCardSelector,
+    ];
+  }
   const columns = [
     {
       title: 'CARD_ID',
@@ -40,38 +68,56 @@ const Dashboard = () => {
       title: 'IFRAME_LINK',
       dataIndex: 'iframe',
       key: 'iframe',
+      render: (text) => <a href={text}>{text}</a>,
     },
     {
       title: 'Action',
       key: 'action',
       dataIndex: 'action',
+      render: (text) => <div>{text}</div>,
     },
   ];
 
   const data = [];
-
-  if (FlipCardSelector) {
-    let fliplenvalue = 0;
-
-    for (let i = 0; i < FlipCardSelector.length; i++) {
+  if (FlipCardSelector && PricingCardSelector && NormalCardSelector) {
+    for (let i = 0; i < MixedArray.length; i++) {
+      const keyvalue = MixedArray[i]['_id'];
       data.push({
         key: i,
-        name: FlipCardSelector[i]['_id'],
+        name: MixedArray[i]['_id'],
 
-        age: FlipCardSelector[i]['cardtype'],
-        iframe: `http://localhost:3000/${FlipCardSelector[i][
+        age: MixedArray[i]['cardtype'],
+        iframe: `http://localhost:3000/${MixedArray[i][
           'cardtype'
-        ].toLowerCase()}?id=${FlipCardSelector[i]['_id']}`,
+        ].toLowerCase()}?id=${MixedArray[i]['_id']}`,
+        action: (
+          <div>
+            <button
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+              onClick={() => showModal(keyvalue, MixedArray[i]['cardtype'])}
+            >
+              <DeleteFilled style={{ fontSize: '20px', marginRight: '10px' }} />
+            </button>
+            <EditFilled style={{ fontSize: '20px' }} />
+            <Modal
+              title='Delete'
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>Do you want to Delete the Card ?</p>
+            </Modal>
+          </div>
+        ),
       });
-      fliplenvalue++;
     }
   }
   return (
-    <div className='dashboard'>
+    <div className='dashboard' style={{ fontFamily: 'Poppins' }}>
       <h1>Dashboard</h1>
-      <div style={{ float: 'right' }}>
+      <div className='button-flex'>
         <a href='http://localhost:3000/userarea'>
-          <button>Add New</button>
+          <button className='addnew'>Add New</button>
         </a>
       </div>
       <Table columns={columns} dataSource={data} pagination={false} />

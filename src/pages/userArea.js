@@ -11,6 +11,7 @@ import { FlexiApi } from '../action/FlipAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlexiPricingApi } from '../action/PricingCard';
 import { FlexiNormalApi } from '../action/NormalCard';
+import { FlipCardAll } from '../action/FlipCardAll';
 
 const { Panel } = Collapse;
 
