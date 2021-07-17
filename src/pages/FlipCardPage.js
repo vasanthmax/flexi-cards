@@ -31,11 +31,10 @@ const FlipCardGet = () => {
     }
   }, [selector]);
   // console.log(data);
-  data.filter((ch) => ch.visiblity === 'yes');
   return (
     <div className='Flip-get'>
       {data
-        .filter((ch) => ch.visiblity === 'yes')
+        // .filter((ch) => ch.visiblity === 'yes')
         .map((ch) => {
           return (
             <FlipCard

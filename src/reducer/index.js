@@ -9,6 +9,7 @@ import normalallReducer from './normalcardall';
 import pricingallReducer from './pricingcardall';
 import flipallReducer from './flipcardall';
 import flipdeleteReducer from './carddelete';
+import updateReducer from './updateReducer';
 export const rootReducer = combineReducers({
   flipReducer: flipReducer,
   flipgetReducer: flipgetReducer,
@@ -20,4 +21,5 @@ export const rootReducer = combineReducers({
   pricingallReducer: pricingallReducer,
   normalallReducer: normalallReducer,
   flipdeleteReducer: flipdeleteReducer,
+  updateReducer: updateReducer,
 });

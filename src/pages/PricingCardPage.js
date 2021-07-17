@@ -31,31 +31,32 @@ const PricingCardGet = () => {
     }
   }, [selector]);
 
-  // console.log(data);
+  console.log(data);
 
   return (
     <div className='pricing'>
       {data.map((ch) => {
+        console.log(ch?.pricingcardcolor);
         return (
           <PricingCard
             planName={ch[selector.plannamekey]}
             planPrice={ch[selector.planpricekey]}
-            planLink={ch[selector.planlink]}
+            planLink={ch[selector.planlinkkey]}
             planfeature1={ch[selector.planfeature1key]}
             planfeature2={ch[selector.planfeature2key]}
             planfeature3={ch[selector.planfeature3key]}
             planfeature4={ch[selector.planfeature4key]}
             planfeature5={ch[selector.planfeature5key]}
-            PricingCardColor={ch.pricingcardcolor}
-            PricingPlanColor={ch.princingplancolor}
-            PricingPlanSize={ch.pricingplansize}
-            PricingPriceColor={ch.pricingpricecolor}
-            PricingPriceSize={ch.pricingpricesize}
-            PricingButtonColor={ch.pricingbuttoncolor}
-            PricingButtonTextColor={ch.pricingbuttontextcolor}
-            PricingFeatureColor={ch.pricingfeaturecolor}
-            PricingFeatureSize={ch.princingfeaturesize}
-            PricingFont={ch.pricingfont}
+            PricingCardColor={selector.pricingcardcolor}
+            PricingPlanColor={selector.princingplancolor}
+            PricingPlanSize={selector.pricingplansize}
+            PricingPriceColor={selector.pricingpricecolor}
+            PricingPriceSize={selector.pricingpricesize}
+            PricingButtonColor={selector.pricingbuttoncolor}
+            PricingButtonTextColor={selector.pricingbuttontextcolor}
+            PricingFeatureColor={selector.pricingfeaturecolor}
+            PricingFeatureSize={selector.princingfeaturesize}
+            PricingFont={selector.pricingfont}
           ></PricingCard>
         );
       })}

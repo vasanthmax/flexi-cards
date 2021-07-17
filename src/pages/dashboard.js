@@ -98,7 +98,28 @@ const Dashboard = () => {
             >
               <DeleteFilled style={{ fontSize: '20px', marginRight: '10px' }} />
             </button>
-            <EditFilled style={{ fontSize: '20px' }} />
+            <a
+              href={`http://localhost:3000/update/${MixedArray[i]['cardtype']}?id=${keyvalue}&sheet=${MixedArray[i]['sheetid']}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+                onClick={() => showModal(keyvalue, MixedArray[i]['cardtype'])}
+              >
+                <EditFilled
+                  style={{
+                    fontSize: '20px',
+                    color: '#000',
+                    marginLeft: '10px',
+                  }}
+                />
+              </button>
+            </a>
+
             <Modal
               title='Delete'
               visible={isModalVisible}

@@ -4,6 +4,7 @@ import FlipCardGet from './pages/FlipCardPage';
 import PricingCardGet from './pages/PricingCardPage';
 import NormalCardGet from './pages/NormalCard';
 import Dashboard from './pages/dashboard';
+import UserAreaUpdate from './pages/userareaupdate';
 function App() {
   return (
     <div className='App'>
@@ -14,6 +15,7 @@ function App() {
           <Route path='/pricing' component={PricingCardGet} />
           <Route path='/normal' component={NormalCardGet} />
           <Route path='/dashboard' component={Dashboard} />
+          <Route path='/update/:id' component={UserAreaUpdate} />
         </Switch>
       </BrowserRouter>
     </div>
