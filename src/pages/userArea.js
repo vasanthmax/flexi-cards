@@ -215,6 +215,15 @@ const UserArea = () => {
   const [Ratingskey, setRatingsKey] = useState('');
   const [Logokey, setLogoKey] = useState('');
   const [Positionkey, setPositionKey] = useState('');
+  //NormalCardValues
+  const [Namevalue, setNamevalue] = useState('');
+  const [Photovalue, setPhotovalue] = useState('');
+  const [Reviewvalue, setReviewvalue] = useState('');
+  const [Servicevalue, setServicevalue] = useState('');
+  const [Titlevalue, setTitlevalue] = useState('');
+  const [Ratingsvalue, setRatingsvalue] = useState('');
+  const [Logovalue, setLogovalue] = useState('');
+  const [Positionvalue, setPositionvalue] = useState('');
 
   //api backend
   const dispatch = useDispatch();
@@ -298,6 +307,14 @@ const UserArea = () => {
         logokey: Logokey,
         servicekey: Servicekey,
         positionkey: Positionkey,
+        namevalue: Namevalue,
+        photovalue: Photovalue,
+        reviewvalue: Reviewvalue,
+        titlevalue: Titlevalue,
+        ratingsvalue: Ratingsvalue,
+        logovalue: Logovalue,
+        servicevalue: Servicevalue,
+        positionvalue: Positionvalue,
         cardcolor: cardColor,
         avatarshape: avatar,
         namecolor: nameColor,
@@ -376,41 +393,49 @@ const UserArea = () => {
                               if (e.value == 'Title') {
                                 const keyvalue = keys[index]['key'];
                                 setTitleKey(keyvalue);
+                                setTitlevalue(e.value);
                                 setTitle(singleCard[keyvalue]);
                               }
                               if (e.value == 'Photo') {
                                 const keyvalue = keys[index]['key'];
                                 setPhotoKey(keyvalue);
+                                setPhotovalue(e.value);
                                 setPhoto(singleCard[keyvalue]);
                               }
                               if (e.value == 'Review') {
                                 const keyvalue = keys[index]['key'];
                                 setReviewKey(keyvalue);
+                                setReviewvalue(e.value);
                                 setReview(singleCard[keyvalue]);
                               }
                               if (e.value == 'Name') {
                                 const keyvalue = keys[index]['key'];
                                 setNameKey(keyvalue);
+                                setNamevalue(e.value);
                                 setName(singleCard[keyvalue]);
                               }
                               if (e.value == 'Ratings') {
                                 const keyvalue = keys[index]['key'];
                                 setRatingsKey(keyvalue);
+                                setRatingsvalue(e.value);
                                 setRatings(singleCard[keyvalue]);
                               }
                               if (e.value == 'Logo') {
                                 const keyvalue = keys[index]['key'];
                                 setLogoKey(keyvalue);
+                                setLogovalue(e.value);
                                 setLogo(singleCard[keyvalue]);
                               }
                               if (e.value == 'Position') {
                                 const keyvalue = keys[index]['key'];
                                 setPositionKey(keyvalue);
+                                setPositionvalue(e.value);
                                 setPosition(singleCard[keyvalue]);
                               }
                               if (e.value == 'Service') {
                                 const keyvalue = keys[index]['key'];
                                 setServiceKey(keyvalue);
+                                setServicevalue(e.value);
                                 setService(singleCard[keyvalue]);
                               }
                             }}

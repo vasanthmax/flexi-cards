@@ -46,19 +46,19 @@ const NormalCardGet = () => {
             Companylogo={ch[selector.logokey]}
             Service={ch[selector.servicekey]}
             Position={ch[selector.positionkey]}
-            cardColor={ch.cardcolor}
-            avatarShape={ch.avatarshape}
-            nameColor={ch.namecolor}
-            nameSize={ch.namesize}
-            positionColor={ch.positioncolor}
-            positionSize={ch.positionsize}
-            titleColor={ch.titlecolor}
-            titleSize={ch.titlesize}
-            reviewColor={ch.reviewcolor}
-            reviewSize={ch.reviewsize}
-            serviceColor={ch.servicecolor}
-            serviceSize={ch.servicesize}
-            fontname={ch.fontname}
+            cardColor={selector.cardcolor}
+            avatarShape={selector.avatarshape}
+            nameColor={selector.namecolor}
+            nameSize={selector.namesize}
+            positionColor={selector.positioncolor}
+            positionSize={selector.positionsize}
+            titleColor={selector.titlecolor}
+            titleSize={selector.titlesize}
+            reviewColor={selector.reviewcolor}
+            reviewSize={selector.reviewsize}
+            serviceColor={selector.servicecolor}
+            serviceSize={selector.servicesize}
+            fontname={selector.fontname}
           ></Card>
         );
       })}

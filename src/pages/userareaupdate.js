@@ -250,6 +250,15 @@ const UserAreaUpdate = () => {
   const [Ratingskey, setRatingsKey] = useState('');
   const [Logokey, setLogoKey] = useState('');
   const [Positionkey, setPositionKey] = useState('');
+  //NormalCardValues
+  const [Namevalue, setNamevalue] = useState('');
+  const [Photovalue, setPhotovalue] = useState('');
+  const [Reviewvalue, setReviewvalue] = useState('');
+  const [Servicevalue, setServicevalue] = useState('');
+  const [Titlevalue, setTitlevalue] = useState('');
+  const [Ratingsvalue, setRatingsvalue] = useState('');
+  const [Logovalue, setLogovalue] = useState('');
+  const [Positionvalue, setPositionvalue] = useState('');
 
   const saveToDatabase = () => {
     if (cardType == 'Flip') {
@@ -324,7 +333,7 @@ const UserAreaUpdate = () => {
 
     if (cardType === 'Normal') {
       const FlexiApiDetails = {
-        sheetid: id,
+        sheetid: sheetid,
         cardtype: cardType,
         namekey: Namekey,
         photokey: Photokey,
@@ -334,6 +343,14 @@ const UserAreaUpdate = () => {
         logokey: Logokey,
         servicekey: Servicekey,
         positionkey: Positionkey,
+        namevalue: Namevalue,
+        photovalue: Photovalue,
+        reviewvalue: Reviewvalue,
+        titlevalue: Titlevalue,
+        ratingsvalue: Ratingsvalue,
+        logovalue: Logovalue,
+        servicevalue: Servicevalue,
+        positionvalue: Positionvalue,
         cardcolor: cardColor,
         avatarshape: avatar,
         namecolor: nameColor,
@@ -349,7 +366,8 @@ const UserAreaUpdate = () => {
         fontname: fontname,
       };
       console.log(FlexiApiDetails);
-      dispatch(FlexiNormalApi(FlexiApiDetails));
+      dispatch(UpdateCards(cardid, cardType, FlexiApiDetails));
+      window.location.replace('http://localhost:3000/dashboard');
     }
   };
 
@@ -396,6 +414,28 @@ const UserAreaUpdate = () => {
       setPricingButtonTextColor(cardTypeSelector?.pricingbuttontextcolor);
       setPricingButtonColor(cardTypeSelector?.pricingbuttoncolor);
     }
+    if (cardTypeSelector && singleCard && cardType == 'Normal') {
+      setTitle(singleCard[cardTypeSelector?.titlekey]);
+      setPhoto(singleCard[cardTypeSelector?.photokey]);
+      setReview(singleCard[cardTypeSelector?.reviewkey]);
+      setName(singleCard[cardTypeSelector?.namekey]);
+      setRatings(singleCard[cardTypeSelector?.ratingskey]);
+      setPosition(singleCard[cardTypeSelector?.positionkey]);
+      setService(singleCard[cardTypeSelector?.servicekey]);
+      setLogo(singleCard[cardTypeSelector?.logokey]);
+      setAvatarShape(cardTypeSelector?.avatarshape);
+      setnameColor(cardTypeSelector?.namecolor);
+      setnameSize(cardTypeSelector?.namesize);
+      setpositionColor(cardTypeSelector?.positioncolor);
+      setpositionSize(cardTypeSelector?.positionsize);
+      setTitleSize(cardTypeSelector?.titlesize);
+      setTitleColor(cardTypeSelector?.titlecolor);
+      setReviewSize(cardTypeSelector?.reviewsize);
+      setReviewColor(cardTypeSelector?.reviewcolor);
+      setCardColor(cardTypeSelector?.cardcolor);
+      setServiceColor(cardTypeSelector?.servicecolor);
+      setServiceSize(cardTypeSelector?.servicesize);
+    }
   }, [singleCard]);
   useEffect(() => {
     if (cardTypeSelector && singleCard && cardType == 'Flip') {
@@ -415,23 +455,26 @@ const UserAreaUpdate = () => {
       }, 2000);
     }
     if (cardTypeSelector && singleCard && cardType == 'Pricing') {
+      setTimeout(() => {}, 2000);
+    }
+    if (cardTypeSelector && singleCard && cardType == 'Normal') {
       setTimeout(() => {
-        setPricingPlanNameKey(cardTypeSelector?.plannamekey);
-        setPricingPlanLinkKey(cardTypeSelector?.planlinkkey);
-        setPricingPriceKey(cardTypeSelector?.planpricekey);
-        setPricingFeature1Key(cardTypeSelector?.planfeature1key);
-        setPricingFeature2Key(cardTypeSelector?.planfeature2key);
-        setPricingFeature3Key(cardTypeSelector?.planfeature3key);
-        setPricingFeature4Key(cardTypeSelector?.planfeature4key);
-        setPricingFeature5Key(cardTypeSelector?.planfeature5key);
-        setPricingPlanNamevalue(cardTypeSelector?.plannamevalue);
-        setPricingPlanLinkvalue(cardTypeSelector?.planlinkvalue);
-        setPricingPricevalue(cardTypeSelector?.planpricevalue);
-        setPricingFeature1value(cardTypeSelector?.planfeature1value);
-        setPricingFeature2value(cardTypeSelector?.planfeature2value);
-        setPricingFeature3value(cardTypeSelector?.planfeature3value);
-        setPricingFeature4value(cardTypeSelector?.planfeature4value);
-        setPricingFeature5value(cardTypeSelector?.planfeature5value);
+        setNameKey(cardTypeSelector?.namekey);
+        setPhotoKey(cardTypeSelector?.photokey);
+        setReviewKey(cardTypeSelector?.reviewkey);
+        setServiceKey(cardTypeSelector?.servicekey);
+        setTitleKey(cardTypeSelector?.titlekey);
+        setRatingsKey(cardTypeSelector?.ratingskey);
+        setLogoKey(cardTypeSelector?.logokey);
+        setPositionKey(cardTypeSelector?.positionkey);
+        setNamevalue(cardTypeSelector?.namevalue);
+        setPhotovalue(cardTypeSelector?.photovalue);
+        setReviewvalue(cardTypeSelector?.reviewvalue);
+        setServicevalue(cardTypeSelector?.servicevalue);
+        setTitlevalue(cardTypeSelector?.titlevalue);
+        setRatingsvalue(cardTypeSelector?.ratingsvalue);
+        setLogovalue(cardTypeSelector?.logovalue);
+        setPositionvalue(cardTypeSelector?.positionvalue);
       }, 2000);
     }
   }, [singleCard, cardTypeSelector]);
@@ -480,56 +523,538 @@ const UserAreaUpdate = () => {
                       <div className='selector'>
                         <input type='text' readOnly value={ch.key} />
                         <div className='dropdown-section'>
-                          <Dropdown
-                            arrowClassName='myArrowClassName'
-                            arrowClosed={<span className='arrow-closed' />}
-                            arrowOpen={<span className='arrow-open' />}
-                            options={dropdown2}
-                            onChange={(e) => {
-                              if (e.value == 'Title') {
-                                const keyvalue = keys[index]['key'];
-                                setTitleKey(keyvalue);
-                                setTitle(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Photo') {
-                                const keyvalue = keys[index]['key'];
-                                setPhotoKey(keyvalue);
-                                setPhoto(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Review') {
-                                const keyvalue = keys[index]['key'];
-                                setReviewKey(keyvalue);
-                                setReview(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Name') {
-                                const keyvalue = keys[index]['key'];
-                                setNameKey(keyvalue);
-                                setName(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Ratings') {
-                                const keyvalue = keys[index]['key'];
-                                setRatingsKey(keyvalue);
-                                setRatings(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Logo') {
-                                const keyvalue = keys[index]['key'];
-                                setLogoKey(keyvalue);
-                                setLogo(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Position') {
-                                const keyvalue = keys[index]['key'];
-                                setPositionKey(keyvalue);
-                                setPosition(singleCard[keyvalue]);
-                              }
-                              if (e.value == 'Service') {
-                                const keyvalue = keys[index]['key'];
-                                setServiceKey(keyvalue);
-                                setService(singleCard[keyvalue]);
-                              }
-                            }}
-                            value={''}
-                            placeholder='Select an option'
-                          />
+                          {ch.key === cardTypeSelector?.namekey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Namevalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.titlekey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Titlevalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.ratingskey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Ratingsvalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.positionkey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Positionvalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.servicekey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Servicevalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.logokey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Logovalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.reviewkey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Reviewvalue}
+                              placeholder='Select an option'
+                            />
+                          ) : ch.key === cardTypeSelector?.photokey ? (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={Photovalue}
+                              placeholder='Select an option'
+                            />
+                          ) : (
+                            <Dropdown
+                              arrowClassName='myArrowClassName'
+                              arrowClosed={<span className='arrow-closed' />}
+                              arrowOpen={<span className='arrow-open' />}
+                              options={dropdown2}
+                              onChange={(e) => {
+                                if (e.value == 'Title') {
+                                  const keyvalue = keys[index]['key'];
+                                  setTitleKey(keyvalue);
+                                  setTitlevalue(e.value);
+                                  setTitle(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Photo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPhotoKey(keyvalue);
+                                  setPhotovalue(e.value);
+                                  setPhoto(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Review') {
+                                  const keyvalue = keys[index]['key'];
+                                  setReviewKey(keyvalue);
+                                  setReviewvalue(e.value);
+                                  setReview(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Name') {
+                                  const keyvalue = keys[index]['key'];
+                                  setNameKey(keyvalue);
+                                  setNamevalue(e.value);
+                                  setName(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Ratings') {
+                                  const keyvalue = keys[index]['key'];
+                                  setRatingsKey(keyvalue);
+                                  setRatingsvalue(e.value);
+                                  setRatings(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Logo') {
+                                  const keyvalue = keys[index]['key'];
+                                  setLogoKey(keyvalue);
+                                  setLogovalue(e.value);
+                                  setLogo(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Position') {
+                                  const keyvalue = keys[index]['key'];
+                                  setPositionKey(keyvalue);
+                                  setPositionvalue(e.value);
+                                  setPosition(singleCard[keyvalue]);
+                                }
+                                if (e.value == 'Service') {
+                                  const keyvalue = keys[index]['key'];
+                                  setServiceKey(keyvalue);
+                                  setServicevalue(e.value);
+                                  setService(singleCard[keyvalue]);
+                                }
+                              }}
+                              value={''}
+                              placeholder='Select an option'
+                            />
+                          )}
                         </div>
                       </div>
                     );
