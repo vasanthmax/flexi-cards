@@ -6,6 +6,7 @@
   padding: 20px 40px;
   min-height: 30rem;
   max-width: 25rem;
+  min-width: 25rem;
   border-radius: 10px;
   .plan-pricing {
     font-size: 20px;
@@ -37,9 +38,23 @@
       font-weight: 400;
       color: #616161;
       margin-bottom: 20px;
+      display: flex;
       img {
         height: 20px;
+        width: 20px;
+      }
+      .ticker {
+        height: 20px;
+        width: 20px;
+        margin-right: 10px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .PricingCard {
+    min-width: 20rem;
+    max-width: 20rem;
   }
 }

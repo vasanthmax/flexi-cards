@@ -210,5 +210,44 @@
         justify-content: center;
       }
     }
+    .save-button {
+      padding: 10px 20px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      margin-right: 20px;
+      background: rgba(0, 128, 0, 0.72);
+      color: #fff;
+    }
+
+    .review-all-button {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #000000;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 128, 0, 0.72);
+      background: transparent;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    .review-all-button:hover {
+      background: rgba(0, 128, 0, 0.72);
+      color: #fff;
+    }
+    .update-button {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      background: #1ba9e9;
+      cursor: pointer;
+      margin-right: 20px;
+    }
   }
 }

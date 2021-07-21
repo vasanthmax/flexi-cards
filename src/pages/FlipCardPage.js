@@ -32,33 +32,37 @@ const FlipCardGet = () => {
   }, [selector]);
   // console.log(data);
   return (
-    <div className='Flip-get'>
-      {data
-        // .filter((ch) => ch.visiblity === 'yes')
-        .map((ch) => {
-          return (
-            <FlipCard
-              Name={ch[selector.namekey]}
-              Title={ch[selector.titlekey]}
-              Price={ch[selector.pricekey]}
-              Description={ch[selector.descriptionkey]}
-              Goto={ch[selector.gotokey]}
-              Photo={ch[selector.photokey]}
-              flipTitleSize={selector.titlesize}
-              flipTitleColor={selector.titlecolor}
-              FlipNameColor={selector.namecolor}
-              FlipNameSize={selector.namesize}
-              FlipCardColor={selector.cardcolor}
-              FlipPriceColor={selector.pricecolor}
-              FlipPriceSize={selector.pricesize}
-              FlipDescriptionColor={selector.descriptioncolor}
-              FlipDescriptionSize={selector.descriptionsize}
-              FlipButtonColor={selector.buttoncolor}
-              FlipButtonTextColor={selector.buttontextcolor}
-              FlipFont={selector.textfont}
-            ></FlipCard>
-          );
-        })}
+    <div className='flip-page'>
+      <div className='flip-card-page'>
+        {data
+          // .filter((ch) => ch.visiblity === 'yes')
+          .map((ch) => {
+            return (
+              <div className='col'>
+                <FlipCard
+                  Name={ch[selector.namekey]}
+                  Title={ch[selector.titlekey]}
+                  Price={ch[selector.pricekey]}
+                  Description={ch[selector.descriptionkey]}
+                  Goto={ch[selector.gotokey]}
+                  Photo={ch[selector.photokey]}
+                  flipTitleSize={selector.titlesize}
+                  flipTitleColor={selector.titlecolor}
+                  FlipNameColor={selector.namecolor}
+                  FlipNameSize={selector.namesize}
+                  FlipCardColor={selector.cardcolor}
+                  FlipPriceColor={selector.pricecolor}
+                  FlipPriceSize={selector.pricesize}
+                  FlipDescriptionColor={selector.descriptioncolor}
+                  FlipDescriptionSize={selector.descriptionsize}
+                  FlipButtonColor={selector.buttoncolor}
+                  FlipButtonTextColor={selector.buttontextcolor}
+                  FlipFont={selector.textfont}
+                ></FlipCard>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

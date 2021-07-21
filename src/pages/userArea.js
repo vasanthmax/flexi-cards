@@ -165,6 +165,9 @@ const UserArea = () => {
     'Arial',
     'Papyrus',
   ];
+  const ScrollType = ['Horizontal', 'Vertical'];
+  const defaultScroll = ScrollType[0];
+  const [scrollvalue, setScrollValue] = useState(defaultScroll);
   const fontdefault = fontoptions[0];
   const [fontname, Setfont] = useState(fontdefault);
   const [FlipFont, setFlipFont] = useState(fontdefault);
@@ -257,6 +260,7 @@ const UserArea = () => {
         buttoncolor: FlipButtonColor,
         buttontextcolor: FlipButtonTextColor,
         textfont: FlipFont,
+        scrolltype: scrollvalue,
       };
       dispatch(FlexiApi(FlexiApiDetails));
     }
@@ -291,6 +295,7 @@ const UserArea = () => {
         pricingfeaturecolor: PricingFeatureColor,
         princingfeaturesize: PricingFeatureSize,
         pricingfont: PricingFont,
+        scrolltype: scrollvalue,
       };
       dispatch(FlexiPricingApi(FlexiApiDetails));
     }
@@ -328,6 +333,7 @@ const UserArea = () => {
         servicecolor: serviceColor,
         servicesize: serviceSize,
         fontname: fontname,
+        scrolltype: scrollvalue,
       };
       console.log(FlexiApiDetails);
       dispatch(FlexiNormalApi(FlexiApiDetails));
@@ -743,6 +749,17 @@ const UserArea = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='9'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : cardType === 'Flip' ? (
                     <Collapse accordion>
@@ -867,6 +884,17 @@ const UserArea = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='8'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : cardType === 'Pricing' ? (
                     <Collapse accordion>
@@ -973,6 +1001,17 @@ const UserArea = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='7'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : (
                     ''
@@ -1059,7 +1098,9 @@ const UserArea = () => {
             ''
           )}
         </div>
-        <button onClick={() => saveToDatabase()}>Save</button>
+        <button className='save-button' onClick={() => saveToDatabase()}>
+          Save
+        </button>
         <a
           href={
             cardType === 'Flip'
@@ -1069,7 +1110,7 @@ const UserArea = () => {
               : `http://localhost:3000/${cardType.toLowerCase()}?id=${selectorNormal}`
           }
         >
-          <button>Review All</button>
+          <button className='review-all-button'>Review All</button>
         </a>
       </div>
     </div>

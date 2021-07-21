@@ -45,7 +45,7 @@ const PricingCard = ({
           color: `${PricingPriceColor}`,
         }}
       >
-        {planPrice} <span>INR</span>
+        {planPrice}
       </h1>
       <a href={planLink}>
         <button
@@ -68,7 +68,7 @@ const PricingCard = ({
             }}
           >
             <span>
-              <img src={Tick} alt='' />
+              <img src={Tick} alt='' className='ticker' />
             </span>{' '}
             {planfeature1}
           </li>
@@ -83,7 +83,7 @@ const PricingCard = ({
             }}
           >
             <span>
-              <img src={Tick} alt='' />
+              <img src={Tick} alt='' className='ticker' />
             </span>{' '}
             {planfeature2}
           </li>
@@ -98,7 +98,7 @@ const PricingCard = ({
             }}
           >
             <span>
-              <img src={Tick} alt='' />
+              <img src={Tick} alt='' className='ticker' />
             </span>{' '}
             {planfeature3}
           </li>
@@ -113,7 +113,7 @@ const PricingCard = ({
             }}
           >
             <span>
-              <img src={Tick} alt='' />
+              <img src={Tick} alt='' className='ticker' />
             </span>{' '}
             {planfeature4}
           </li>
@@ -128,7 +128,7 @@ const PricingCard = ({
             }}
           >
             <span>
-              <img src={Tick} alt='' />
+              <img src={Tick} alt='' className='ticker' />
             </span>{' '}
             {planfeature5}
           </li>

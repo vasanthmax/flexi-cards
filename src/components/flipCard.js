@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 const FlipCard = ({
   Name,
   Title,
@@ -19,6 +19,8 @@ const FlipCard = ({
   FlipButtonTextColor,
   FlipFont,
 }) => {
+  const [readMore, setReadMore] = useState(false);
+
   return (
     <div className='flipcover' style={{ fontFamily: `${FlipFont}` }}>
       <div className='flip-card'>
@@ -70,7 +72,14 @@ const FlipCard = ({
                 color: `${FlipDescriptionColor}`,
               }}
             >
-              {Description}
+              {readMore === false ? Description.slice(0, 100) : Description}
+              <span>
+                {Description.length < 100 ? (
+                  ''
+                ) : (
+                  <button onClick={() => setReadMore(true)}>Read More</button>
+                )}
+              </span>
             </p>
 
             <a href={`${Goto}`} target=''>

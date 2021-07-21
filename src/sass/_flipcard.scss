@@ -1,6 +1,7 @@
 .flipcover {
   border-radius: 10px;
-
+  // margin-right: 20px;
+  // margin-bottom: 20px;
   .flip-card {
     background-color: transparent;
     width: 300px;
@@ -47,8 +48,9 @@
       background-color: black;
       transform: rotateY(180deg);
       border-radius: 10px;
-      height: auto;
+      height: 350px;
       padding: 10px;
+      overflow: scroll;
 
       .title-back {
         color: #ffffff;
@@ -62,6 +64,19 @@
       .product-details {
         font-size: 12px;
         color: #777777;
+        overflow: scroll;
+        height: 120px;
+        span {
+          button {
+            background: #ffdc64;
+            border: none;
+            padding: 3px;
+            border-radius: 5px;
+            margin-left: 5px;
+            color: #000;
+            cursor: pointer;
+          }
+        }
       }
       .goto {
         padding: 10px 20px;
@@ -73,6 +88,10 @@
         background: #fc8f00;
         color: #ffffff;
       }
+    }
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
     }
   }
   .flip-card:hover .flip-card-inner {

@@ -200,6 +200,10 @@ const UserAreaUpdate = () => {
     'Arial',
     'Papyrus',
   ];
+
+  const ScrollType = ['Horizontal', 'Vertical'];
+  const defaultScroll = ScrollType[0];
+  const [scrollvalue, setScrollValue] = useState(defaultScroll);
   const fontdefault = fontoptions[0];
   const [fontname, Setfont] = useState(fontdefault);
   const [FlipFont, setFlipFont] = useState(fontdefault);
@@ -289,6 +293,7 @@ const UserAreaUpdate = () => {
         buttoncolor: FlipButtonColor,
         buttontextcolor: FlipButtonTextColor,
         textfont: FlipFont,
+        scrolltype: scrollvalue,
       };
       console.log(FlexiApiDetails);
       dispatch(UpdateCards(cardid, cardType, FlexiApiDetails));
@@ -325,6 +330,7 @@ const UserAreaUpdate = () => {
         pricingfeaturecolor: PricingFeatureColor,
         princingfeaturesize: PricingFeatureSize,
         pricingfont: PricingFont,
+        scrolltype: scrollvalue,
       };
       console.log(FlexiApiDetails);
       dispatch(UpdateCards(cardid, cardType, FlexiApiDetails));
@@ -364,6 +370,7 @@ const UserAreaUpdate = () => {
         servicecolor: serviceColor,
         servicesize: serviceSize,
         fontname: fontname,
+        scrolltype: scrollvalue,
       };
       console.log(FlexiApiDetails);
       dispatch(UpdateCards(cardid, cardType, FlexiApiDetails));
@@ -2142,6 +2149,17 @@ const UserAreaUpdate = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='9'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : cardType === 'Flip' ? (
                     <Collapse accordion>
@@ -2266,6 +2284,17 @@ const UserAreaUpdate = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='8'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : cardType === 'Pricing' ? (
                     <Collapse accordion>
@@ -2372,6 +2401,17 @@ const UserAreaUpdate = () => {
                           placeholder={'Select an option'}
                         />
                       </Panel>
+                      <Panel header='Scroll Customize' key='7'>
+                        <p>Scroll Type</p>
+                        <Dropdown
+                          options={ScrollType}
+                          onChange={(e) => {
+                            setScrollValue(e.value);
+                          }}
+                          value={scrollvalue}
+                          placeholder={scrollvalue}
+                        />
+                      </Panel>
                     </Collapse>
                   ) : (
                     ''
@@ -2458,18 +2498,9 @@ const UserAreaUpdate = () => {
             ''
           )}
         </div>
-        <button onClick={() => saveToDatabase()}>Save</button>
-        <a
-          href={
-            cardType === 'Flip'
-              ? `http://localhost:3000/${cardType?.toLowerCase()}?id=${selector}`
-              : cardType === 'Pricing'
-              ? `http://localhost:3000/${cardType?.toLowerCase()}?id=${selectorPricing}`
-              : `http://localhost:3000/${cardType?.toLowerCase()}?id=${selectorNormal}`
-          }
-        >
-          <button>Review All</button>
-        </a>
+        <button className='update-button' onClick={() => saveToDatabase()}>
+          Save
+        </button>
       </div>
     </div>
   );
