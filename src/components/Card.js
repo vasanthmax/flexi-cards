@@ -46,9 +46,9 @@ const Card = ({
             // className='avatar-shape'
             style={{
               borderRadius: `${
-                avatarShape == 'Round'
+                avatarShape === 'Round'
                   ? '50%'
-                  : avatarShape == 'Square'
+                  : avatarShape === 'Square'
                   ? '0%'
                   : '10%'
               }`,

@@ -1,5 +1,5 @@
 import UserArea from './pages/userArea';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import FlipCardGet from './pages/FlipCardPage';
 import PricingCardGet from './pages/PricingCardPage';
 import NormalCardGet from './pages/NormalCard';

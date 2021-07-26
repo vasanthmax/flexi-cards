@@ -3,7 +3,7 @@ import axios from 'axios';
 export const FlexiApi = (cardDetails) => {
   return async function (dispatch) {
     const card = await axios.post(
-      'http://flexicards-env.eba-emjxy3hj.us-east-2.elasticbeanstalk.com/cards/flipcard',
+      'http://localhost:5000/cards/flipcard',
       cardDetails
     );
     console.log(card);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlipCardAll } from '../action/FlipCardAll';
 import { FlexiApiDelete } from '../action/FlipDelete';
