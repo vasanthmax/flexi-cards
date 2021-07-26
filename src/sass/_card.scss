@@ -10,18 +10,24 @@
   max-width: 400px;
   position: relative;
   margin-bottom: 20px;
-  .avatar {
+  .avatar-shape {
     height: 150px;
     width: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
-    object-fit: cover;
     box-shadow: 1px 1px 20px rgb(204, 204, 204);
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit: cover;
+    }
   }
 
   .rating {
-    img {
+    display: flex;
+    .star-row {
       height: 30px;
+      width: 30px;
       margin-right: 2px;
     }
   }
@@ -58,6 +64,11 @@
   .logo {
     height: 70px;
     margin-bottom: 10px;
+    img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+    }
   }
   .review {
     font-size: 12px;

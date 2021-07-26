@@ -3,7 +3,7 @@ import axios from 'axios';
 export const FlexiPricingApi = (cardDetails) => {
   return async function (dispatch) {
     const card = await axios.post(
-      'http://localhost:5000/cards/pricingcard',
+      'http://flexicards-env.eba-emjxy3hj.us-east-2.elasticbeanstalk.com/cards/pricingcard',
       cardDetails
     );
     console.log(card);

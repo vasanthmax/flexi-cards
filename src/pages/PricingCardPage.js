@@ -40,7 +40,7 @@ const PricingCardGet = () => {
   return (
     <div className='pricing'>
       <div className='pricing-card-page'>
-        {selector ? (
+        {data.length && (
           <OwlCarousel
             className='owl-theme'
             margin={10}
@@ -62,9 +62,10 @@ const PricingCardGet = () => {
             }}
           >
             {data.map((ch) => {
-              console.log(ch?.pricingcardcolor);
+              console.log(selector?.pricingcardcolor);
               return (
                 <PricingCard
+                  className='owl-carousel'
                   planName={ch[selector.plannamekey]}
                   planPrice={ch[selector.planpricekey]}
                   planLink={ch[selector.planlinkkey]}
@@ -87,8 +88,6 @@ const PricingCardGet = () => {
               );
             })}
           </OwlCarousel>
-        ) : (
-          ''
         )}
       </div>
     </div>
