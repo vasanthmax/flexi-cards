@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 export const FlexiApi = (cardDetails) => {
   return async function (dispatch) {
@@ -6,7 +7,9 @@ export const FlexiApi = (cardDetails) => {
       'http://localhost:5000/cards/flipcard',
       cardDetails
     );
-    console.log(card);
+    if (card.status === 201) {
+      message.success('Your Card has been saved Successfully');
+    }
     dispatch({
       type: 'FLIPABLE_CARDS',
       payload: card.data._id,

@@ -76,6 +76,8 @@ const FlipCard = ({
               <span>
                 {Description.length < 100 ? (
                   ''
+                ) : readMore === true ? (
+                  ''
                 ) : (
                   <button onClick={() => setReadMore(true)}>Read More</button>
                 )}

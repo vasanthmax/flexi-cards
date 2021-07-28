@@ -19,6 +19,7 @@ const UserArea = () => {
   const selector = useSelector((state) => state.flipReducer.flip);
   const selectorPricing = useSelector((state) => state.pricingReducer.pricing);
   const selectorNormal = useSelector((state) => state.normalReducer.normal);
+
   const [cardColor, setCardColor] = useState('#ffffff');
   const options = ['Normal', 'Flip', 'Pricing'];
   const [id, setId] = useState('');
@@ -39,33 +40,32 @@ const UserArea = () => {
   const [serviceColor, setServiceColor] = useState('#000000');
   const [serviceSize, setServiceSize] = useState('14');
   const dropdown2 = [
-    'Photo',
-    'Name',
-    'Title',
-    'Ratings',
-    'Position',
-    'Review',
-    'Logo',
-    'Service',
-    'Default',
+    { keyvalue: 'Photo' },
+    { keyvalue: 'Name' },
+    { keyvalue: 'Title' },
+    { keyvalue: 'Ratings' },
+    { keyvalue: 'Position' },
+    { keyvalue: 'Review' },
+    { keyvalue: 'Logo' },
+    { keyvalue: 'Service' },
   ];
   const flipcardDropdown = [
-    'Title',
-    'Name',
-    'Price',
-    'Photo',
-    'Description',
-    'Goto',
+    { keyvalue: 'Title' },
+    { keyvalue: 'Name' },
+    { keyvalue: 'Price' },
+    { keyvalue: 'Photo' },
+    { keyvalue: 'Description' },
+    { keyvalue: 'Goto' },
   ];
   const pricingDropdown = [
-    'Plan Name',
-    'Plan Price',
-    'Plan Link',
-    'Plan Feature 1',
-    'Plan Feature 2',
-    'Plan Feature 3',
-    'Plan Feature 4',
-    'Plan Feature 5',
+    { keyvalue: 'Plan Name' },
+    { keyvalue: 'Plan Price' },
+    { keyvalue: 'Plan Link' },
+    { keyvalue: 'Plan Feature 1' },
+    { keyvalue: 'Plan Feature 2' },
+    { keyvalue: 'Plan Feature 3' },
+    { keyvalue: 'Plan Feature 4' },
+    { keyvalue: 'Plan Feature 5' },
   ];
   // FlipCard Constants
   const [Fliptitle, setFlipTitle] = useState('Title');
@@ -138,8 +138,8 @@ const UserArea = () => {
   };
   if (singleCard) {
     for (let value of Object.keys(singleCard)) {
-      if (keys.findIndex((ch) => ch.key === value) === -1) {
-        keys.push({ key: value });
+      if (keys.indexOf(value) === -1) {
+        keys.push(value);
       }
     }
   }
@@ -230,7 +230,7 @@ const UserArea = () => {
   //api backend
   const dispatch = useDispatch();
 
-  const saveToDatabase = () => {
+  const saveToDatabase = async () => {
     if (cardType === 'Flip') {
       const FlexiApiDetails = {
         sheetid: id,
@@ -334,7 +334,6 @@ const UserArea = () => {
         fontname: fontname,
         scrolltype: scrollvalue,
       };
-      console.log(FlexiApiDetails);
       dispatch(FlexiNormalApi(FlexiApiDetails));
     }
   };
@@ -384,64 +383,56 @@ const UserArea = () => {
             <div className='selector-section'>
               {singleCard ? (
                 cardType === 'Normal' ? (
-                  keys.map((ch, index) => {
+                  dropdown2.map((ch, index) => {
                     return (
                       <div className='selector'>
-                        <input type='text' readOnly value={ch.key} />
+                        <input type='text' readOnly value={ch.keyvalue} />
                         <div className='dropdown-section'>
                           <Dropdown
                             arrowClassName='myArrowClassName'
                             arrowClosed={<span className='arrow-closed' />}
                             arrowOpen={<span className='arrow-open' />}
-                            options={dropdown2}
+                            options={keys}
                             onChange={(e) => {
-                              if (e.value === 'Title') {
-                                const keyvalue = keys[index]['key'];
-                                setTitleKey(keyvalue);
-                                setTitlevalue(e.value);
-                                setTitle(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Title') {
+                                setTitleKey(e.value);
+                                setTitlevalue(ch.keyvalue);
+                                setTitle(singleCard[e.value]);
                               }
-                              if (e.value === 'Photo') {
-                                const keyvalue = keys[index]['key'];
-                                setPhotoKey(keyvalue);
-                                setPhotovalue(e.value);
-                                setPhoto(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Photo') {
+                                setPhotoKey(e.value);
+                                setPhotovalue(ch.keyvalue);
+                                setPhoto(singleCard[e.value]);
                               }
-                              if (e.value === 'Review') {
-                                const keyvalue = keys[index]['key'];
-                                setReviewKey(keyvalue);
-                                setReviewvalue(e.value);
-                                setReview(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Review') {
+                                setReviewKey(e.value);
+                                setReviewvalue(ch.keyvalue);
+                                setReview(singleCard[e.value]);
                               }
-                              if (e.value === 'Name') {
-                                const keyvalue = keys[index]['key'];
-                                setNameKey(keyvalue);
-                                setNamevalue(e.value);
-                                setName(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Name') {
+                                setNameKey(e.value);
+                                setNamevalue(ch.keyvalue);
+                                setName(singleCard[e.value]);
                               }
-                              if (e.value === 'Ratings') {
-                                const keyvalue = keys[index]['key'];
-                                setRatingsKey(keyvalue);
-                                setRatingsvalue(e.value);
-                                setRatings(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Ratings') {
+                                setRatingsKey(e.value);
+                                setRatingsvalue(ch.keyvalue);
+                                setRatings(singleCard[e.value]);
                               }
-                              if (e.value === 'Logo') {
-                                const keyvalue = keys[index]['key'];
-                                setLogoKey(keyvalue);
-                                setLogovalue(e.value);
-                                setLogo(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Logo') {
+                                setLogoKey(e.value);
+                                setLogovalue(ch.keyvalue);
+                                setLogo(singleCard[e.value]);
                               }
-                              if (e.value === 'Position') {
-                                const keyvalue = keys[index]['key'];
-                                setPositionKey(keyvalue);
-                                setPositionvalue(e.value);
-                                setPosition(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Position') {
+                                setPositionKey(e.value);
+                                setPositionvalue(ch.keyvalue);
+                                setPosition(singleCard[e.value]);
                               }
-                              if (e.value === 'Service') {
-                                const keyvalue = keys[index]['key'];
-                                setServiceKey(keyvalue);
-                                setServicevalue(e.value);
-                                setService(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Service') {
+                                setServiceKey(e.value);
+                                setServicevalue(ch.keyvalue);
+                                setService(singleCard[e.value]);
                               }
                             }}
                             value={''}
@@ -452,54 +443,48 @@ const UserArea = () => {
                     );
                   })
                 ) : cardType === 'Flip' ? (
-                  keys.map((ch, index) => {
+                  flipcardDropdown.map((ch, index) => {
                     return (
                       <div className='selector'>
-                        <input type='text' readOnly value={ch.key} />
+                        <input type='text' readOnly value={ch.keyvalue} />
                         <div className='dropdown-section'>
                           <Dropdown
                             arrowClassName='myArrowClassName'
                             arrowClosed={<span className='arrow-closed' />}
                             arrowOpen={<span className='arrow-open' />}
-                            options={flipcardDropdown}
+                            options={keys}
                             onChange={(e) => {
-                              if (e.value === 'Title') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipTitleKey(keyvalue);
-                                setFlipTitleValue(e.value);
-                                setFlipTitle(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Title') {
+                                setFlipTitleKey(e.value);
+                                setFlipTitleValue(ch.keyvalue);
+                                setFlipTitle(singleCard[e.value]);
                               }
-                              if (e.value === 'Photo') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipPhotoKey(keyvalue);
-                                setFlipPhotoValue(e.value);
-                                setFlipPhoto(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Photo') {
+                                setFlipPhotoKey(e.value);
+                                setFlipPhotoValue(ch.keyvalue);
+                                setFlipPhoto(singleCard[e.value]);
                               }
 
-                              if (e.value === 'Name') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipNameKey(keyvalue);
-                                setFlipNameValue(e.value);
-                                setFlipName(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Name') {
+                                setFlipNameKey(e.value);
+                                setFlipNameValue(ch.keyvalue);
+                                setFlipName(singleCard[e.value]);
                               }
 
-                              if (e.value === 'Description') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipDescKey(keyvalue);
-                                setFlipDescValue(e.value);
-                                setFlipDescription(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Description') {
+                                setFlipDescKey(e.value);
+                                setFlipDescValue(ch.keyvalue);
+                                setFlipDescription(singleCard[e.value]);
                               }
-                              if (e.value === 'Price') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipPriceKey(keyvalue);
-                                setFlipPriceValue(e.value);
-                                setFlipPrice(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Price') {
+                                setFlipPriceKey(e.value);
+                                setFlipPriceValue(ch.keyvalue);
+                                setFlipPrice(singleCard[e.value]);
                               }
-                              if (e.value === 'Goto') {
-                                const keyvalue = keys[index]['key'];
-                                setFlipGotoKey(keyvalue);
-                                setFlipGotoValue(e.value);
-                                setGoto(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Goto') {
+                                setFlipGotoKey(e.value);
+                                setFlipGotoValue(ch.keyvalue);
+                                setGoto(singleCard[e.value]);
                               }
                             }}
                             value={''}
@@ -510,66 +495,58 @@ const UserArea = () => {
                     );
                   })
                 ) : cardType === 'Pricing' ? (
-                  keys.map((ch, index) => {
+                  pricingDropdown.map((ch, index) => {
                     return (
                       <div className='selector'>
-                        <input type='text' readOnly value={ch.key} />
+                        <input type='text' readOnly value={ch.keyvalue} />
                         <div className='dropdown-section'>
                           <Dropdown
                             arrowClassName='myArrowClassName'
                             arrowClosed={<span className='arrow-closed' />}
                             arrowOpen={<span className='arrow-open' />}
-                            options={pricingDropdown}
+                            options={keys}
                             onChange={(e) => {
-                              if (e.value === 'Plan Name') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingPlanNameKey(keyvalue);
-                                setPricingPlanNamevalue(e.value);
-                                setPricingPlanName(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Name') {
+                                setPricingPlanNameKey(e.value);
+                                setPricingPlanNamevalue(ch.keyvalue);
+                                setPricingPlanName(singleCard[e.value]);
                               }
-                              if (e.value === 'Plan Price') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingPriceKey(keyvalue);
-                                setPricingPricevalue(e.value);
-                                setPricingPlanPrice(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Price') {
+                                setPricingPriceKey(e.value);
+                                setPricingPricevalue(ch.keyvalue);
+                                setPricingPlanPrice(singleCard[e.value]);
                               }
 
-                              if (e.value === 'Plan Link') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingPlanLinkKey(keyvalue);
-                                setPricingPlanLinkvalue(e.value);
-                                setPricingPlanLink(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Link') {
+                                setPricingPlanLinkKey(e.value);
+                                setPricingPlanLinkvalue(ch.keyvalue);
+                                setPricingPlanLink(singleCard[e.value]);
                               }
 
-                              if (e.value === 'Plan Feature 1') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingFeature1Key(keyvalue);
-                                setPricingFeature1value(e.value);
-                                setPricingFeature1(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Feature 1') {
+                                setPricingFeature1Key(e.value);
+                                setPricingFeature1value(ch.keyvalue);
+                                setPricingFeature1(singleCard[e.value]);
                               }
-                              if (e.value === 'Plan Feature 2') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingFeature2Key(keyvalue);
-                                setPricingFeature2value(e.value);
-                                setPricingFeature2(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Feature 2') {
+                                setPricingFeature2Key(e.value);
+                                setPricingFeature2value(ch.keyvalue);
+                                setPricingFeature2(singleCard[e.value]);
                               }
-                              if (e.value === 'Plan Feature 3') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingFeature3Key(keyvalue);
-                                setPricingFeature3value(e.value);
-                                setPricingFeature3(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Feature 3') {
+                                setPricingFeature3Key(e.value);
+                                setPricingFeature3value(ch.keyvalue);
+                                setPricingFeature3(singleCard[e.value]);
                               }
-                              if (e.value === 'Plan Feature 4') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingFeature4Key(keyvalue);
-                                setPricingFeature4value(e.value);
-                                setPricingFeature4(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Feature 4') {
+                                setPricingFeature4Key(e.value);
+                                setPricingFeature4value(ch.keyvalue);
+                                setPricingFeature4(singleCard[e.value]);
                               }
-                              if (e.value === 'Plan Feature 5') {
-                                const keyvalue = keys[index]['key'];
-                                setPricingFeature5Key(keyvalue);
-                                setPricingFeature5value(e.value);
-                                setPricingFeature5(singleCard[keyvalue]);
+                              if (ch.keyvalue === 'Plan Feature 5') {
+                                setPricingFeature5Key(e.value);
+                                setPricingFeature5value(ch.keyvalue);
+                                setPricingFeature5(singleCard[e.value]);
                               }
                             }}
                             value={''}

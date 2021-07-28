@@ -80,6 +80,8 @@ const Card = ({
           <span>
             {Review.length < 100 ? (
               ''
+            ) : readMore === true ? (
+              ''
             ) : (
               <button onClick={() => setReadMore(true)}>Read More</button>
             )}

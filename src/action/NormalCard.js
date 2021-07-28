@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 export const FlexiNormalApi = (cardDetails) => {
   return async function (dispatch) {
@@ -6,7 +7,9 @@ export const FlexiNormalApi = (cardDetails) => {
       'http://localhost:5000/cards/normalcard',
       cardDetails
     );
-    console.log(card);
+    if (card.status === 201) {
+      message.success('Your Card has been saved Successfully');
+    }
     dispatch({
       type: 'NORMAL_CARDS',
       payload: card.data._id,

@@ -5,6 +5,7 @@ import { FlipCardAll } from '../action/FlipCardAll';
 import { FlexiApiDelete } from '../action/FlipDelete';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -93,13 +94,18 @@ const Dashboard = () => {
         action: (
           <div>
             <button
-              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+              style={{
+                background: 'none',
+                border: 'none',
+                marginRight: '20px',
+                cursor: 'pointer',
+              }}
               onClick={() => showModal(keyvalue, MixedArray[i]['cardtype'])}
             >
               <DeleteFilled style={{ fontSize: '20px', marginRight: '10px' }} />
             </button>
-            <a
-              href={`http://localhost:3000/update/${MixedArray[i]['cardtype']}?id=${keyvalue}&sheet=${MixedArray[i]['sheetid']}`}
+            <Link
+              to={`update/${MixedArray[i]['cardtype']}?id=${keyvalue}&sheet=${MixedArray[i]['sheetid']}`}
               style={{ textDecoration: 'none' }}
             >
               <button
@@ -118,7 +124,7 @@ const Dashboard = () => {
                   }}
                 />
               </button>
-            </a>
+            </Link>
 
             <Modal
               title='Delete'
